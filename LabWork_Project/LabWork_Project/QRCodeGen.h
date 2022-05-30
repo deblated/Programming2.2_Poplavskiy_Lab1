@@ -2,63 +2,59 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include <cmath>
-//#include <cassert>
-//#include "CImg.h"
-using namespace std;
+#include <cmath>
+#include <ctime>
+#include <cassert>
+#include "CImg.h"
+using namespace cimg_library;
 
+using std::string; using std::to_string; using std::swap; using std::max; using std::vector;
+class QR {
+    private:
 
-namespace qrcodegen {
-    class QRCodeGen
-    {
-        struct QRCODE {
-            string str;
-            string bitStr;
-            int maskCode = -1;
-            int version = 1;
-            int correctionLevel = -1;
-            vector<vector<string>> informationBlocks;
-            vector<vector<string>> correctionBlocks;
-        };
+        friend class OutPutMatrix;
 
-        struct OutPutMatrix {
-            size_t size;
-            int** array;
-            OutPutMatrix(size_t size);
-        };
-
+        string textStr;
+        string bitStr;
+        int maskCode = -1;
+        int version = 1;
+        int correctionLevel = -1;
+        bool bitCoding = false;
+        vector<vector<string>> informationBlocks;
+        vector<vector<string>> correctionBlocks;
+        
         string DecimalToBinary(int number);
-
         int BinaryToDecimal(string str);
-
-        void StrEncoder(QRCODE& str);
-
-        void AddingServiceFields(QRCODE& str);
-
-        void AddingExtraBits(QRCODE& str);
-
-        void DividingToBlocks(QRCODE& str);
-
-        void CreatingCorrectionBytes(QRCODE& str);
-
-        void CombiningBlocks(QRCODE& str);
-
-        void SetFunctionModule(OutPutMatrix arr, int x, int y, bool isDark);
-
-        void DrawFormatBits(QRCODE str, OutPutMatrix arr);
-
-        void DrawAlignmentPattern(OutPutMatrix arr, int x, int y);
-
-        void DrawSearchPart(OutPutMatrix arr, int x, int y);
-
-        void DrawVersion(QRCODE str, OutPutMatrix arr);
-
-        void ToImg(OutPutMatrix mtx, string t_color, string b_color);
-
-        void Draw(QRCODE str, string t_color, string b_color);
+        void StrEncoder();
+        void AddingServiceFields();
+        void AddingExtraBits();
+        void DividingToBlocks();
+        void CreatingCorrectionBytes();
+        void CombiningBlocks();
+        void DrawToImg(string t_color, string b_color);
 
     public:
-        void QRCode(string str, int correctionLevel, int maskCode, string t_color, string b_color);
+
+        friend void Draw(QR qrcode, string t_color, string b_color);
+        QR(string textStr, int maskCode = rand() % 8, int correctionLevel = 2) : textStr(textStr), maskCode(maskCode), correctionLevel(correctionLevel)
+        {}
     };
 
-}
+class OutPutMatrix {
+    friend class QR;
+
+    size_t size;
+    int** array;
+
+    OutPutMatrix(size_t size);
+    ~OutPutMatrix();
+
+    void SetFunctionModule(int x, int y, bool isDark);
+    void DrawFormatBits(QR qr);
+    void DrawAlignmentPattern(int x, int y);
+    void DrawSearchPart(int x, int y);
+    void DrawVersion(QR qr);
+    void ToImg(string t_color, string b_color);
+};
+
+void Draw(QR qrcode, string t_color, string b_color);
