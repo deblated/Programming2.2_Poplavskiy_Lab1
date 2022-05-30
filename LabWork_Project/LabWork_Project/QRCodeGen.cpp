@@ -222,6 +222,14 @@
         "000100000111011"
     };
     
+    void QR::StrEncodeBit()
+    {
+        std::string result = "";
+        for (char& _char : textStr) {
+            result += std::bitset<8>(_char).to_string();
+        }
+        bitStr = result;
+    }
     string QR::DecimalToBinary(int number) {
         string buffer;
         do {
@@ -314,6 +322,10 @@
         //отримуємо двійкове число
         if(!bitCoding){
             int number = textStr.size();
+            buffer = DecimalToBinary(number);
+        }
+        else {
+            int number = bitStr.size()/8;
             buffer = DecimalToBinary(number);
         }
 
@@ -588,11 +600,11 @@
         // вставка інформації на полотно
         size_t i = 0;  // індекс для масиву даних
         // вставку бітів робимо зігзагом
-        for (size_t right = size - 1; right >= 1; right -= 2) {  // індекс правої колонки в кожній парі
+        for (int right = size - 1; right >= 1; right -= 2) {  // індекс правої колонки в кожній парі
             if (right == 6)
                 right = 5;
-            for (size_t vert = 0; vert < size; vert++) {  // вертикальний лічильник
-                for (size_t j = 0; j < 2; j++) {
+            for (int vert = 0; vert < size; vert++) {  // вертикальний лічильник
+                for (int j = 0; j < 2; j++) {
                     size_t x = static_cast<size_t>(right - j);  // Actual x coordinate
                     bool upward = ((right + 1) & 2) == 0;
                     size_t y = static_cast<size_t>(upward ? size - 1 - vert : vert);
@@ -797,7 +809,7 @@
         assert(!(qrcode.textStr.size() > MaximalAmountOfInfo[qrcode.correctionLevel][40]) && "Length of string is more than allowed");
         assert(!(qrcode.textStr.size() == 0) && "Length can't be equal to 0");
         if (qrcode.bitCoding == true) {
-            
+            qrcode.StrEncodeBit();
         }
         else {
             qrcode.StrEncoder();

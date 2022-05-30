@@ -5,6 +5,7 @@
 #include <cmath>
 #include <ctime>
 #include <cassert>
+#include <bitset>
 #include "CImg.h"
 using namespace cimg_library;
 
@@ -23,6 +24,7 @@ class QR {
         vector<vector<string>> informationBlocks;
         vector<vector<string>> correctionBlocks;
         
+        void StrEncodeBit();
         string DecimalToBinary(int number);
         int BinaryToDecimal(string str);
         void StrEncoder();
@@ -36,7 +38,7 @@ class QR {
     public:
 
         friend void Draw(QR qrcode, string t_color, string b_color);
-        QR(string textStr, int maskCode = rand() % 8, int correctionLevel = 2) : textStr(textStr), maskCode(maskCode), correctionLevel(correctionLevel)
+        QR(string textStr,int bitCoding=false, int maskCode = rand() % 8, int correctionLevel = 2) : textStr(textStr), maskCode(maskCode), correctionLevel(correctionLevel), bitCoding(bitCoding)
         {}
     };
 
@@ -49,6 +51,7 @@ class OutPutMatrix {
     OutPutMatrix(size_t size);
     ~OutPutMatrix();
 
+    
     void SetFunctionModule(int x, int y, bool isDark);
     void DrawFormatBits(QR qr);
     void DrawAlignmentPattern(int x, int y);
