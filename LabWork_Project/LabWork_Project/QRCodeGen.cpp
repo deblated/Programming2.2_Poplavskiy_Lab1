@@ -330,8 +330,15 @@
         }
 
         //знаходимо підходящу версію кодування
-        while (textStr.size() /** 8*/ > MaximalAmountOfInfo[correctionLevel][version]) {
-            version++;
+        if (!bitCoding) {
+            while (textStr.size() /** 8*/ > MaximalAmountOfInfo[correctionLevel][version]) {
+                version++;
+            }
+        }
+        else {
+            while (bitStr.size() /** 8*/ > MaxAmountOfInfo[correctionLevel][version]) {
+                version++;
+            }
         }
         //ПОБАЙТОВЕ ДОДАТИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //підгоняємо довжину рядку в двійковому представленні під певне число (для різних версій різне)
