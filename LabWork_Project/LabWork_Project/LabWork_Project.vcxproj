@@ -140,11 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LabWork_Project.cpp" />
-    <ClCompile Include="QRCodeGen.cpp" />
+    <ClCompile Include="QRCode.cpp" />
+    <ClCompile Include="QRArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CImg.h" />
-    <ClInclude Include="QRCodeGen.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="QRArray.h" />
+    <ClInclude Include="QRCode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

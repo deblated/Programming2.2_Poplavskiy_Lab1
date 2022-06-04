@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include "QRCodeGen.h"
+#include "QRCode.h"
 
 int main(){
 	// encoding mode: alphanumeric and binary
@@ -11,10 +11,10 @@ int main(){
 
 	QR qrcode(u8"TEST1", binary);
 
-	Draw(qrcode, black, orange);
-	Draw(qrcode, green, orange);
-	Draw(qrcode, blue, orange);
-	Draw(qrcode, brown, orange);
+	qrcode.Draw(qrcode, black, orange);
+	qrcode.Draw(qrcode, green, orange);
+	qrcode.Draw(qrcode, blue, orange);
+	qrcode.Draw(qrcode, brown, orange);
 
 	return 0;
 }
