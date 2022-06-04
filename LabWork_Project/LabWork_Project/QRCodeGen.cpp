@@ -272,11 +272,9 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
         string buffer;
         int* pairs = new int[(textStr.size() / 2) + 1];
 
-        //розбиваємо числа на пари і додаємо в масив
+        //splitting numbers into pairs
         int j = 0;
-        for (size_t i = 0; i <= textStr.size() - 1; i += 2)
-        {
-            //якщо знаходимо недопустимий символ
+        for (size_t i = 0; i <= textStr.size() - 1; i += 2){
             assert(!((textStr[i] && CodingTable[textStr[i]] == 0 && textStr[i] != '0') || (textStr[i + 1] && CodingTable[textStr[i + 1]] == 0 && textStr[i + 1] != '0')) && "Invalid symbol is found. Try to examine the list of valid symbols");
 
             if (textStr[i] && textStr[i + 1]) {
@@ -287,42 +285,33 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
             j++;
         }
-        //робимо двійковий рядок з цих чисел, якщо в рядку нема заборонених символів
+        //making a binary string from these numbers
         int number;
         for (size_t i = 0; i < (textStr.size() / 2) + (textStr.size() % 2); i++) {
-
             number = pairs[i];
-
-            //отримуємо двійкове число
             buffer = DecimalToBinary(number);
-
-            //якщо парна кількість символів
             if (textStr.size() % 2 == 0) {
                 while (buffer.size() != 11) {
                     buffer = '0' + buffer;
                 }
             }
-            //якщо непарна кількість символів, то ми маємо зробити довжину останнього 6, а не 11
             if (textStr.size() % 2 != 0) {
                 while ((i == textStr.size() / 2) ? buffer.size() != 6 : buffer.size() != 11) {
                     buffer = '0' + buffer;
                 }
             }
-            //додаємо до результату значення буфера
             result += buffer;
             buffer = "";
         }
         delete[]pairs;
-        //повертаємо результат
+        
         bitStr = result;
     }
     void QR::AddingServiceFields() {
-        
         string buffer;
         string result;
 
-
-        //отримуємо двійкове число
+        //binary number of string length
         int number;
         switch (GetMode()) {
         case alphanumeric:
@@ -334,23 +323,22 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             buffer = DecimalToBinary(number);
             break;
         }
-        //знаходимо підходящу версію кодування
+
+        //looking for the right version
         switch (GetMode()) {
         case alphanumeric:
-            while (textStr.size() /** 8*/ > MaximalAmountOfInfo[correctionLevel][version]) {
+            while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version]) {
                 version++;
             }
             break;
         case binary:
-            while (bitStr.size() /** 8*/ > MaxAmountOfInfo[correctionLevel][version]) {
+            while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version]) {
                 version++;
             }
             break;
         }
 
-
-
-        //підгоняємо довжину рядку в двійковому представленні під певне число (для різних версій різне)
+        //length adjustment
         if (version >= 1 && version <= 9) {
             switch (GetMode()) {
             case alphanumeric:
@@ -394,8 +382,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
         }
 
-        //додаємо до способу кодування кількість інформації і саму інформацію
-        //тут також
+        //merging info
         switch (GetMode()) {
         case alphanumeric:
             buffer = "0010" + buffer;
@@ -422,13 +409,10 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
         }
 
-        //доповнюємо для кратності 
-
         while (bitStr.size() % 8 != 0) {
             bitStr = bitStr + '0';
         }
 
-        //знаходимо кількість завершаючих послідовностей 0 та 1, що мають чередуватись
         int number = ((MaxAmountOfInfo[correctionLevel][version] - bitStr.size()) / 8);
         for (size_t i = 1; i <= number; i++) {
             if (i % 2 == 1) {
@@ -448,8 +432,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
         int numberOfBytesInBlock = (MaxAmountOfInfo[correctionLevel][version] / 8) / amountOfBlocks;
         int numberOfAugmentedBlocks = (MaxAmountOfInfo[correctionLevel][version] / 8) % amountOfBlocks;
 
-        //заповнюємо блоки байтами інформації. певні блоки мають на 1 байт більше,
-        //тому спочатку заповнюємо менші, а після них - більші. наприклад: 36 - 36 - 36 - 37 - 37
+        //filling blocks
         for (size_t i = 0; i < amountOfBlocks - numberOfAugmentedBlocks; i++) {
             for (size_t j = 0; j < numberOfBytesInBlock * 8; j++) {
                 ch = bitStr[counter];
@@ -463,7 +446,8 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             informationBlocks.push_back(buffer);
             buffer.clear();
         }
-        //ось тут йде заповнення більших
+
+        //filling larger blocks
         for (size_t i = 0; i < numberOfAugmentedBlocks; i++) {
             for (size_t j = 0; j < (numberOfBytesInBlock + 1) * 8; j++) {
                 ch = bitStr[counter];
@@ -481,14 +465,14 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
     void QR::CreatingCorrectionBytes() {
         string buffer;
         int number;
-        int A, B, C;//буферні значення для вичислення байтів корекції
+        int A, B, C;
         int Poly[30];
         int PolyBuf[30];
         int counter = 2;
         vector<string> block;
 
         int amountOfCorrectionBytes = AmountOfCorrectionBytesPerBlock[correctionLevel][version];
-        //проходимось по масиву
+
         for (size_t i = 0; i < 13; i++) {
             if (GeneratingPolynomial[i][0] == amountOfCorrectionBytes) {
                 while (GeneratingPolynomial[i][counter] != -1 && counter != 32) {
@@ -498,10 +482,8 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
         }
         counter = counter - 2;
-        //створюємо стільки ж блоків корекції, скільки є блоків інформації
-        for (size_t i = 0; i < informationBlocks.size(); i++) {
 
-            //створюємо та заповнюємо підготовлений масив
+        for (size_t i = 0; i < informationBlocks.size(); i++) {
             int maximal = max((int)informationBlocks[i].size(), amountOfCorrectionBytes);
             int* arr = new int[maximal] {0};
 
@@ -509,29 +491,20 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
                 arr[j] = BinaryToDecimal(informationBlocks[i][j]);
             }
 
-            //цикл на кількість байтів інформації даного блоку
-
             for (size_t j = 0; j < informationBlocks[i].size(); j++) {
-                //копіюємо в буферний масив значення оригінального т.я. на кожній ітерації циклу потрібні оригінальні значення масиву,
-                //але ми їх змінюємо в процесі виконання циклу
                 std::copy(std::begin(Poly), std::end(Poly), std::begin(PolyBuf));
 
-                // перший крок
                 A = arr[0];
                 for (size_t f = 1; f < maximal; f++) {
                     arr[f - 1] = arr[f];
                 }
                 arr[maximal - 1] = 0;
 
-                //другий крок
                 if (A != 0) {
-                    //третій крок
                     B = IGF[A];
-                    //умновно четвертий крок
                     for (size_t z = 0; z < amountOfCorrectionBytes; z++) {
                         PolyBuf[z] = ((PolyBuf[z] + B) % 255);
                     }
-                    //п'ятий крок
                     for (size_t y = 0; y < amountOfCorrectionBytes; y++) {
                         arr[y] = GF[PolyBuf[y]] ^ arr[y];
                     }
@@ -539,7 +512,6 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
 
             }
 
-            //отут занесемо коректуючі блоки в масив
             for (size_t j = 0; j < maximal; j++) {
                 number = arr[j];
 
@@ -555,13 +527,13 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             correctionBlocks.push_back(block);
             block.clear();
         }
-        // ! нульові байти корекції не заносити потім при об'єднанні блоків}
     }
     void QR::CombiningBlocks() {
         bitStr = "";
         int amountOfBlocks = AmountOfBlocks[correctionLevel][version];
         int numberOfAugmentedBlocks = (MaxAmountOfInfo[correctionLevel][version] / 8) % amountOfBlocks;
-        //комбінуємо блоки інформації і блоки корекціїї
+
+        //combining information blocks and correction blocks
         for (size_t i = 0; i < informationBlocks[amountOfBlocks - numberOfAugmentedBlocks - 1].size(); i++) {
             for (size_t j = 0; j < informationBlocks.size(); j++) {
                 bitStr += informationBlocks[j][i];
@@ -579,7 +551,8 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
     void QR::DrawingArray(text_colors t_color, background_colors b_color) {
         int numAlign = 0;
         int size = -1;
-        //вичисляємо кількість вирівнюючих візерунків і розмір потрібного нам масиву
+
+        //counting number of alignment pattern and size of array
         for (size_t i = 0; i < 7; i++) {
             if (AlignmentPatterns[version - 1][i] != -1) {
                 numAlign++;
@@ -592,18 +565,18 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
 
         OutPutMatrix arr(size);
 
-        // малюємо горизонтальні і вертикальні полоски синхронизації
+        //drawing sync strips
         for (size_t i = 0; i < arr.size; i++) {
             arr.SetFunctionModule(6, i, i % 2 == 0);
             arr.SetFunctionModule(i, 6, i % 2 == 0);
         }
 
-        // малюємо три пошукові візерунки
+        //drawing search patterns
         arr.DrawSearchPart(3, 3);
         arr.DrawSearchPart(arr.size - 4, 3);
         arr.DrawSearchPart(3, arr.size - 4);
 
-        // малюємо вирівнюючі візерунки
+        //drawing alignment patterns
         for (size_t i = 0; i < numAlign; i++) {
             for (size_t j = 0; j < numAlign; j++) {
                 // не малюємо їх на місці пошукових візерунків
@@ -617,19 +590,18 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
         }
 
-        // малюємо номер версії та код маски + рівня корекції
+        //drawing version, mask code and correction level
         arr.DrawVersion(*this);
         arr.DrawFormatBits(*this);
 
-        // вставка інформації на полотно
-        size_t i = 0;  // індекс для масиву даних
-        // вставку бітів робимо зігзагом
-        for (int right = size - 1; right >= 1; right -= 2) {  // індекс правої колонки в кожній парі
+        //inserting info to the array (by zigzag)
+        size_t i = 0;  
+        for (int right = size - 1; right >= 1; right -= 2) {
             if (right == 6)
                 right = 5;
-            for (int vert = 0; vert < size; vert++) {  // вертикальний лічильник
+            for (int vert = 0; vert < size; vert++) {
                 for (int j = 0; j < 2; j++) {
-                    size_t x = static_cast<size_t>(right - j);  // Actual x coordinate
+                    size_t x = static_cast<size_t>(right - j);
                     bool upward = ((right + 1) & 2) == 0;
                     size_t y = static_cast<size_t>(upward ? size - 1 - vert : vert);
                     if (arr.array[y][x] != 3 && arr.array[y][x] != 4 && i < bitStr.size()) {
@@ -640,8 +612,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
         }
 
-        //приміняємо маску
-
+        //applying mask
         for (size_t y = 0; y < arr.size; y++) {
             for (size_t x = 0; x < arr.size; x++) {
                 bool invert;
@@ -659,6 +630,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             }
         }
 
+        //drawing to file
         arr.ToImg(t_color, b_color);
 
     }
@@ -674,6 +646,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
     encoding_mode QR::GetMode(){
         return mode;
     }
+
     OutPutMatrix::OutPutMatrix(size_t size) : size(size)
     {
         array = new int* [size];
@@ -704,9 +677,9 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
     void OutPutMatrix::DrawFormatBits(QR qr) {
         string buffer;
         bool bit = true;
-        //малюємо коди маски та рівня корекції в двох місцях
 
-        //1ий
+        //we draw in 2 places
+        //1st
         for (size_t i = 9; i < 15; i++) {
             buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
             (buffer == "1") ? bit = true : bit = false;
@@ -727,7 +700,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
             SetFunctionModule(i, 8, bit);
         }
 
-        //2ий
+        //2nd place
         for (size_t i = 7; i < 15; i++) {
             buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
             (buffer == "1") ? bit = true : bit = false;
@@ -741,14 +714,12 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
         SetFunctionModule(8, size - 8, true);
     }
     void OutPutMatrix::DrawAlignmentPattern(int x, int y) {
-        //малюємо пошукові візерунки
         for (int dy = -2; dy <= 2; dy++) {
             for (int dx = -2; dx <= 2; dx++)
                 SetFunctionModule(x + dx, y + dy, std::max(std::abs(dx), std::abs(dy)) != 1);
         }
     }
     void OutPutMatrix::DrawSearchPart(int x, int y) {
-        // малюємо вирівнюючі візерунки
         for (int dy = -4; dy <= 4; dy++) {
             for (int dx = -4; dx <= 4; dx++) {
                 int dist = std::max(std::abs(dx), std::abs(dy));
@@ -759,11 +730,10 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
         }
     }
     void OutPutMatrix::DrawVersion(QR qr) {
-        //малюємо код версії (за умови що версія більша за 7)
         int version = 1;
         switch (qr.GetMode()) {
         case alphanumeric: 
-            while (qr.GetInfo().size() /** 8*/ > MaximalAmountOfInfo[qr.GetCorrectionLevel()][version]) {
+            while (qr.GetInfo().size() > MaximalAmountOfInfo[qr.GetCorrectionLevel()][version]) {
                 version++;
             }
             break;
@@ -792,6 +762,7 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
         unsigned int h = size * 10 + 50;
         unsigned char t_col[3];
         unsigned char b_col[3];
+
         switch (t_color) {
             case black: t_col[0] = 0; t_col[1] = 0; t_col[2] = 0; break;
             case green:  t_col[0] = 0; t_col[1] = 100; t_col[2] = 0; break;

@@ -52,7 +52,6 @@ private:
     OutPutMatrix(size_t size);
     ~OutPutMatrix();
 
-    
     void SetFunctionModule(int x, int y, bool isDark);
     void DrawFormatBits(QR qr);
     void DrawAlignmentPattern(int x, int y);
