@@ -579,7 +579,6 @@ using std::bitset; using std::to_string; using std::swap; using std::max;
         //drawing alignment patterns
         for (size_t i = 0; i < numAlign; i++) {
             for (size_t j = 0; j < numAlign; j++) {
-                // не малюємо їх на місці пошукових візерунків
                 if (version > 6) {
                     if (!((i == 0 && j == 0) || (i == 0 && j == numAlign - 1) || (i == numAlign - 1 && j == 0)))
                         arr.DrawAlignmentPattern(AlignmentPatterns[version - 1][i], AlignmentPatterns[version - 1][j]);
