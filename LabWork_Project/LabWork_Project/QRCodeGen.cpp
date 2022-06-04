@@ -1,4 +1,11 @@
 #include "QRCodeGen.h"
+#include <cmath>
+#include <ctime>
+#include <cassert>
+#include <bitset>
+#include "CImg.h"
+using namespace cimg_library;
+using std::bitset; using std::to_string; using std::swap; using std::max;
 
     const int RemBits[40]{
         0,	7,	7,	7,	7,	7,	0,	0,
@@ -224,9 +231,9 @@
     
     void QR::StrEncodeBit()
     {
-        std::string result = "";
+        string result = "";
         for (char& _char : textStr) {
-            result += std::bitset<8>(_char).to_string();
+            result += bitset<8>(_char).to_string();
         }
         bitStr = result;
     }
@@ -270,11 +277,7 @@
         for (size_t i = 0; i <= textStr.size() - 1; i += 2)
         {
             //якщо знаходимо недопустимий символ
-            //assert(!((textStr[i] && CodingTable[textStr[i]] == 0 && textStr[i] != '0') || (textStr[i + 1] && CodingTable[textStr[i + 1]] == 0 && textStr[i + 1] != '0')) && "Invalid symbol is found. Try to examine the list of valid symbols");
-
-            //if ((textStr[i] && CodingTable[textStr[i]] == 0 && textStr[i] != '0') || (textStr[i + 1] && CodingTable[textStr[i + 1]] == 0 && textStr[i + 1] != '0')) {
-            //    bitCoding = true;
-            //}
+            assert(!((textStr[i] && CodingTable[textStr[i]] == 0 && textStr[i] != '0') || (textStr[i + 1] && CodingTable[textStr[i + 1]] == 0 && textStr[i + 1] != '0')) && "Invalid symbol is found. Try to examine the list of valid symbols");
 
             if (textStr[i] && textStr[i + 1]) {
                 pairs[j] = CodingTable[textStr[i]] * 45 + CodingTable[textStr[i + 1]];
@@ -313,79 +316,93 @@
         //повертаємо результат
         bitStr = result;
     }
-    //функція перетворення на бітовий рядок
     void QR::AddingServiceFields() {
         
         string buffer;
         string result;
 
-        //отримуємо двійкове число
-        if(!bitCoding){
-            int number = textStr.size();
-            buffer = DecimalToBinary(number);
-        }
-        else {
-            int number = bitStr.size()/8;
-            buffer = DecimalToBinary(number);
-        }
 
+        //отримуємо двійкове число
+        int number;
+        switch (GetMode()) {
+        case alphanumeric:
+            number = textStr.size();
+            buffer = DecimalToBinary(number);
+            break;
+        case binary:
+            number = bitStr.size() / 8;
+            buffer = DecimalToBinary(number);
+            break;
+        }
         //знаходимо підходящу версію кодування
-        if (!bitCoding) {
+        switch (GetMode()) {
+        case alphanumeric:
             while (textStr.size() /** 8*/ > MaximalAmountOfInfo[correctionLevel][version]) {
                 version++;
             }
-        }
-        else {
+            break;
+        case binary:
             while (bitStr.size() /** 8*/ > MaxAmountOfInfo[correctionLevel][version]) {
                 version++;
             }
+            break;
         }
-        //ПОБАЙТОВЕ ДОДАТИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
         //підгоняємо довжину рядку в двійковому представленні під певне число (для різних версій різне)
         if (version >= 1 && version <= 9) {
-            if (!bitCoding) {
+            switch (GetMode()) {
+            case alphanumeric:
                 while (buffer.size() != 9) {
                     buffer = '0' + buffer;
                 }
-            }
-            else {
+                break;
+            case binary:
                 while (buffer.size() != 8) {
                     buffer = '0' + buffer;
                 }
+                break;
             }
         }
         else if (version >= 10 && version <= 26) {
-            if (!bitCoding) {
+            switch (GetMode()) {
+            case alphanumeric:
                 while (buffer.size() != 11) {
                     buffer = '0' + buffer;
                 }
-            }
-            else {
+                break;
+            case binary:
                 while (buffer.size() != 16) {
                     buffer = '0' + buffer;
                 }
+                break;
             }
         }
         else {
-            if (!bitCoding) {
+            switch (GetMode()) {
+            case alphanumeric:
                 while (buffer.size() != 13) {
                     buffer = '0' + buffer;
                 }
-            }
-            else {
+                break;
+            case binary:
                 while (buffer.size() != 16) {
                     buffer = '0' + buffer;
                 }
+                break;
             }
         }
 
         //додаємо до способу кодування кількість інформації і саму інформацію
         //тут також
-        if (!bitCoding) {
+        switch (GetMode()) {
+        case alphanumeric:
             buffer = "0010" + buffer;
-        }
-        else {
+            break;
+        case binary:
             buffer = "0100" + buffer;
+            break;
         }
 
         result = buffer + bitStr;
@@ -559,7 +576,7 @@
             }
         }
     }
-    void QR::DrawToImg(string t_color, string b_color) {
+    void QR::DrawingArray(text_colors t_color, background_colors b_color) {
         int numAlign = 0;
         int size = -1;
         //вичисляємо кількість вирівнюючих візерунків і розмір потрібного нам масиву
@@ -645,7 +662,18 @@
         arr.ToImg(t_color, b_color);
 
     }
-
+    int QR::GetCorrectionLevel() {
+        return correctionLevel;
+    }
+    int QR::GetMaskCode() {
+        return maskCode;
+    }
+    string QR::GetInfo() {
+        return textStr;
+    }
+    encoding_mode QR::GetMode(){
+        return mode;
+    }
     OutPutMatrix::OutPutMatrix(size_t size) : size(size)
     {
         array = new int* [size];
@@ -680,33 +708,33 @@
 
         //1ий
         for (size_t i = 9; i < 15; i++) {
-            buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][i];
+            buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
             (buffer == "1") ? bit = true : bit = false;
             SetFunctionModule(8, 14 - i, bit);
         }
-        buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][6];
+        buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][6];
         (buffer == "1") ? bit = true : bit = false;
         SetFunctionModule(7, 8, bit);
-        buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][7];
+        buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][7];
         (buffer == "1") ? bit = true : bit = false;
         SetFunctionModule(8, 8, bit);
-        buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][8];
+        buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][8];
         (buffer == "1") ? bit = true : bit = false;
         SetFunctionModule(8, 7, bit);
         for (size_t i = 0; i <= 5; i++) {
-            buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][i];
+            buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
             (buffer == "1") ? bit = true : bit = false;
             SetFunctionModule(i, 8, bit);
         }
 
         //2ий
         for (size_t i = 7; i < 15; i++) {
-            buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][i];
+            buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
             (buffer == "1") ? bit = true : bit = false;
             SetFunctionModule(size - 15 + i, 8, bit);
         }
         for (size_t i = 0; i < 7; i++) {
-            buffer = MaskCodes[8 * (qr.correctionLevel - 1) + qr.maskCode][i];
+            buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
             (buffer == "1") ? bit = true : bit = false;
             SetFunctionModule(8, size - 1 - i, bit);
         }
@@ -732,47 +760,50 @@
     }
     void OutPutMatrix::DrawVersion(QR qr) {
         //малюємо код версії (за умови що версія більша за 7)
-        if (qr.version < 7)
+        int version = 1;
+        switch (qr.GetMode()) {
+        case alphanumeric: 
+            while (qr.GetInfo().size() /** 8*/ > MaximalAmountOfInfo[qr.GetCorrectionLevel()][version]) {
+                version++;
+            }
+            break;
+        case binary: 
+            while (qr.GetInfo().size() * 8 > MaxAmountOfInfo[qr.GetCorrectionLevel()][version]) {
+                version++;
+            }
+            break;
+        }
+        if (version < 7) {
             return;
+        }
         bool bit = true;
         string buffer;
         for (size_t i = 0; i < 18; i++) {
-            buffer = versionCodes[qr.version - 7][i];
+            buffer = versionCodes[version - 7][i];
             (buffer == "1") ? bit = true : bit = false;
             int a = size - 11 + (i / 6);
             int b = i % 6;
             SetFunctionModule(a, b, bit);
             SetFunctionModule(b, a, bit);
-
         }
     }
-    void OutPutMatrix::ToImg(string t_color, string b_color) {
+    void OutPutMatrix::ToImg(text_colors t_color, background_colors b_color) {
         unsigned int w = size * 10 + 50;
         unsigned int h = size * 10 + 50;
         unsigned char t_col[3];
         unsigned char b_col[3];
-
-        if (t_color == "black") {
-            t_col[0] = 0; t_col[1] = 0; t_col[2] = 0;
+        switch (t_color) {
+            case black: t_col[0] = 0; t_col[1] = 0; t_col[2] = 0; break;
+            case green:  t_col[0] = 0; t_col[1] = 100; t_col[2] = 0; break;
+            case blue: t_col[0] = 0; t_col[1] = 0; t_col[2] = 128; break;
+            case brown: t_col[0] = 78; t_col[1] = 53; t_col[2] = 36; break;
+            default: t_col[0] = 0; t_col[1] = 0; t_col[2] = 0; break;
         }
-        else if (t_color == "blue") {
-            t_col[0] = 0; t_col[1] = 0; t_col[2] = 128;
-        }
-        else if (t_color == "brown") {
-            t_col[0] =78; t_col[1] = 53; t_col[2] = 36;
-        }
-        else {
-            t_col[0] = 11; t_col[1] = 102; t_col[2] = 35;
-        }
-
-        if (b_color == "white") {
-            b_col[0] = 255; b_col[1] = 255; b_col[2] = 255;
-        }
-        else if (b_color == "yellow") {
-            b_col[0] = 255; b_col[1] = 255; b_col[2] = 0;
-        }
-        else {
-            b_col[0] = 255; b_col[1] = 94; b_col[2] = 19;
+        switch (b_color) {
+            case white: b_col[0] = 255; b_col[1] = 255; b_col[2] = 255; break;
+            case yellow: b_col[0] = 255; b_col[1] = 255; b_col[2] = 0; break;
+            case orange: b_col[0] = 255; b_col[1] = 165; b_col[2] = 0; break;
+            default: b_col[0] = 255; b_col[1] = 255; b_col[2] = 255; break;
         }
 
         CImg<unsigned char> image(w, h, 1, 3, 255);
@@ -808,23 +839,26 @@
         image.save_bmp(filename);
     }
     
-    void Draw(QR qrcode, string t_color, string b_color) {
-        assert((t_color == "black" || t_color == "blue" || t_color == "brown" || t_color == "green") && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
-        assert((b_color == "white" || b_color == "yellow" || b_color == "orange")&&"b_color value can only be 'white', 'yellow' or 'orange'");
+    void Draw(QR qrcode, text_colors t_color, background_colors b_color) {
+        assert((t_color == black || t_color == blue || t_color == brown || t_color == green) && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
+        assert((b_color == white || b_color == yellow || b_color == orange) && "b_color value can only be 'white', 'yellow' or 'orange'");
         assert(!(qrcode.correctionLevel > 4 || qrcode.correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
         assert(!(qrcode.maskCode > 7 || qrcode.maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");
         assert(!(qrcode.textStr.size() > MaximalAmountOfInfo[qrcode.correctionLevel][40]) && "Length of string is more than allowed");
         assert(!(qrcode.textStr.size() == 0) && "Length can't be equal to 0");
-        if (qrcode.bitCoding == true) {
-            qrcode.StrEncodeBit();
-        }
-        else {
+        switch (qrcode.GetMode()) {
+        case alphanumeric:
             qrcode.StrEncoder();
+            break;
+        case binary:
+            qrcode.StrEncodeBit();
+            break;
         }
+
         qrcode.AddingServiceFields();
         qrcode.AddingExtraBits();
         qrcode.DividingToBlocks();
         qrcode.CreatingCorrectionBytes();
         qrcode.CombiningBlocks();
-        qrcode.DrawToImg(t_color, b_color);   
+        qrcode.DrawingArray(t_color, b_color);
     }

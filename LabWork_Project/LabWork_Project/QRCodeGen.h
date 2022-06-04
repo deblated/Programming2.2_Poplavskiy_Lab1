@@ -1,26 +1,21 @@
 #pragma once
-#include <iostream>
 #include <string>
 #include <vector>
-#include <cmath>
-#include <ctime>
-#include <cassert>
-#include <bitset>
-#include "CImg.h"
-using namespace cimg_library;
 
-using std::string; using std::to_string; using std::swap; using std::max; using std::vector;
+using std::string;  using std::vector; 
+
+enum text_colors{ black, green, blue, brown };
+enum background_colors { white, yellow, orange };
+enum encoding_mode { alphanumeric, binary };
 class QR {
     private:
-
-        friend class OutPutMatrix;
 
         string textStr;
         string bitStr;
         int maskCode = -1;
         int version = 1;
         int correctionLevel = -1;
-        bool bitCoding = false;
+        encoding_mode mode;
         vector<vector<string>> informationBlocks;
         vector<vector<string>> correctionBlocks;
         
@@ -33,16 +28,22 @@ class QR {
         void DividingToBlocks();
         void CreatingCorrectionBytes();
         void CombiningBlocks();
-        void DrawToImg(string t_color, string b_color);
+        void DrawingArray(text_colors t_color, background_colors b_color);
 
     public:
 
-        friend void Draw(QR qrcode, string t_color, string b_color);
-        QR(string textStr,int bitCoding=false, int maskCode = rand() % 8, int correctionLevel = 2) : textStr(textStr), maskCode(maskCode), correctionLevel(correctionLevel), bitCoding(bitCoding)
+        int GetCorrectionLevel();
+        int GetMaskCode();
+        string GetInfo();
+        encoding_mode GetMode();
+        friend void Draw(QR qrcode, text_colors t_color, background_colors b_color);
+        QR(string textStr, encoding_mode mode, int maskCode = rand() % 8, int correctionLevel = 2) : textStr(textStr), maskCode(maskCode), correctionLevel(correctionLevel), mode(mode)
         {}
     };
 
 class OutPutMatrix {
+private:
+
     friend class QR;
 
     size_t size;
@@ -57,7 +58,7 @@ class OutPutMatrix {
     void DrawAlignmentPattern(int x, int y);
     void DrawSearchPart(int x, int y);
     void DrawVersion(QR qr);
-    void ToImg(string t_color, string b_color);
+    void ToImg(text_colors t_color, background_colors b_color);
 };
 
-void Draw(QR qrcode, string t_color, string b_color);
+void Draw(QR qrcode, text_colors t_color, background_colors b_color);
