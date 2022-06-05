@@ -9,14 +9,23 @@
 using std::bitset; using std::to_string; using std::swap; using std::max; using std::abs; 
 using std::begin; using std::end; using std::copy; using std::stoi;
     
-    void QR::StrEncodeBit()
-    {
+
+    /*!
+        \brief Converts text to binary string in binary encoding mode
+    */
+
+    void QR::StrEncodeBinary(){
         string result = "";
         for (char& _char : textStr) {
             result += bitset<8>(_char).to_string();
         }
         bitStr = result;
     }
+
+    /*!
+        \brief Converts decimal number to binary
+        \param[in] number - Value to convert
+    */
 
     string QR::DecimalToBinary(int number) {
         string buffer;
@@ -30,6 +39,11 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         }
         return buffer;
     }
+
+    /*!
+        \brief Converts binary number to decimal
+        \param[in] str - Value to convert
+    */
 
     int QR::BinaryToDecimal(string str) {
         int num = stoi(str);
@@ -50,7 +64,11 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         return dec_value;
     }
 
-    void QR::StrEncoder() {
+    /*!
+        \brief Converts text to binary string in alphanumeric encoding mode
+    */
+
+    void QR::StrEncoderAlphanumeric() {
         string result;
         string buffer;
         int* pairs = new int[(textStr.size() / 2) + 1];
@@ -90,6 +108,10 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         
         bitStr = result;
     }
+
+    /*!
+    \brief Adds service fields such as: size of the info to encode, version to be used and encoding mode    
+    */
 
     void QR::AddingServiceFields() {
         string buffer;
@@ -181,6 +203,10 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         bitStr = result;
     }
 
+    /*!
+    \brief Adds extra bits to make a bit string of the desired length
+    */
+
     void QR::AddingExtraBits() {
         string result;
         if (MaxAmountOfInfo[correctionLevel][version] - bitStr.size() > 4) {
@@ -208,6 +234,10 @@ using std::begin; using std::end; using std::copy; using std::stoi;
             }
         }
     }
+
+    /*!
+    \brief Divides the data received from AddingServiceFields() to blocks
+    */
 
     void QR::DividingToBlocks() {
         vector<string> buffer;
@@ -248,6 +278,10 @@ using std::begin; using std::end; using std::copy; using std::stoi;
             buffer.clear();
         }
     }
+
+    /*!
+    \brief Creates blocks with correction bytes
+    */
 
     void QR::CreatingCorrectionBytes() {
         string buffer;
@@ -313,8 +347,13 @@ using std::begin; using std::end; using std::copy; using std::stoi;
 
             correctionBlocks.push_back(block);
             block.clear();
+            delete arr;
         }
     }
+
+    /*!
+    \brief Combines blocks to make a bit string of the desired length
+    */
 
     void QR::CombiningBlocks() {
         bitStr = "";
@@ -336,6 +375,12 @@ using std::begin; using std::end; using std::copy; using std::stoi;
             }
         }
     }
+
+    /*!
+    \brief Puts all information into the matrix
+    \param[in] t_color - Text color of the qr code (usually it is black)
+    \param[in] b_color - Background color of the qr code (usually it is white)
+    */
 
     void QR::DrawingArray(text_colors t_color, background_colors b_color) {
         int numAlign = 0;
@@ -361,9 +406,9 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         }
 
         //drawing search patterns
-        arr.DrawSearchPart(3, 3);
-        arr.DrawSearchPart(arr.size - 4, 3);
-        arr.DrawSearchPart(3, arr.size - 4);
+        arr.DrawSearchPattern(3, 3);
+        arr.DrawSearchPattern(arr.size - 4, 3);
+        arr.DrawSearchPattern(3, arr.size - 4);
 
         //drawing alignment patterns
         for (size_t i = 0; i < numAlign; i++) {
@@ -423,21 +468,43 @@ using std::begin; using std::end; using std::copy; using std::stoi;
 
     }
 
+    /*!
+    \brief Correction level getter
+    */
+
     int QR::GetCorrectionLevel() {
         return correctionLevel;
     }
+
+    /*!
+    \brief Mask code getter
+    */
 
     int QR::GetMaskCode() {
         return maskCode;
     }
 
+    /*!
+    \brief Text getter
+    */
+
     string QR::GetInfo() {
         return textStr;
     }
 
+    /*!
+    \brief Encoding mode getter
+    */
+
     encoding_mode QR::GetMode(){
         return mode;
     }
+
+    /*!
+    \brief Calls all necessary functions to draw qr code
+    \param[in] t_color - Text color of the qr code (usually it is black)
+    \param[in] b_color - Background color of the qr code (usually it is white)
+    */
 
     void QR::Draw(QR qrcode, text_colors t_color, background_colors b_color) {
         assert((t_color == black || t_color == blue || t_color == brown || t_color == green) && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
@@ -448,10 +515,10 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         assert(!(qrcode.textStr.size() == 0) && "Length can't be equal to 0");
         switch (qrcode.GetMode()) {
         case alphanumeric:
-            qrcode.StrEncoder();
+            qrcode.StrEncoderAlphanumeric();
             break;
         case binary:
-            qrcode.StrEncodeBit();
+            qrcode.StrEncodeBinary();
             break;
         }
 

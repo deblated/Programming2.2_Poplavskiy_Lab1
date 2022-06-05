@@ -1,11 +1,23 @@
 ﻿#include <iostream>
 #include "QRCode.h"
 
+/*!
+    \brief Main function
+
+	Example
+
+	\code 
+	int main(){
+	QR qrcode(u8"TEST1", binary);
+	qrcode.Draw(qrcode, black, white);
+	return 0;
+	}
+	\endcode
+
+	\warning Writing "u8" before text info is necessary if you want to use binary encoding type
+*/
+
 int main(){
-	// encoding mode: alphanumeric and binary
-	// text color: black, green, blue and brown
-	// background color: white, yellow and orange
-	// maskCode from 0 to 7 and correctionLevel from 1 to 4
 
 	srand(time(0));
 

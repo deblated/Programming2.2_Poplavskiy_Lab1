@@ -4,6 +4,11 @@
 using namespace cimg_library;
 using std::max;
 
+/*!
+    \brief OutPutMatrix constructor that creates dynamic 2d array (matrix)
+    \param[in] size - Sets the matrix size
+*/
+
 OutPutMatrix::OutPutMatrix(size_t size) : size(size)
 {
     array = new int* [size];
@@ -17,13 +22,29 @@ OutPutMatrix::OutPutMatrix(size_t size) : size(size)
     }
 }
 
-OutPutMatrix::~OutPutMatrix()
-{
+/*!
+    \brief OutPutMatrix Destructor that frees allocated memory
+*/
+
+OutPutMatrix::~OutPutMatrix(){
     for (int i = 0; i < size; i++) {
         delete[] array[i];
     }
     delete[] array;
 }
+
+/*!
+    \brief Sets matrix modules as functional
+    \param[in] x - The x-coordinate of the bit in the matrix
+    \param[in] y - The y-coordinate of the bit in the matrix
+    \param[in] isDark - Bit color boolean (black or white)
+
+    There ara 4 types of modules:
+    0 - white non-functional
+    1 - black non-functional
+    3 - black functional
+    4 - white functional
+*/
 
 void OutPutMatrix::SetFunctionModule(int x, int y, bool isDark) {
     if (isDark) {
@@ -34,12 +55,16 @@ void OutPutMatrix::SetFunctionModule(int x, int y, bool isDark) {
     }
 }
 
+/*!
+    \brief Draws a correction level and a mask code in 2 places of the qr code 
+    \param[in] qr - qr code from which we will take the information
+*/
+
 void OutPutMatrix::DrawFormatBits(QR qr) {
     string buffer;
     bool bit = true;
 
-    //we draw in 2 places
-    //1st
+    //1st place
     for (size_t i = 9; i < 15; i++) {
         buffer = MaskCodes[8 * (qr.GetCorrectionLevel() - 1) + qr.GetMaskCode()][i];
         (buffer == "1") ? bit = true : bit = false;
@@ -74,6 +99,12 @@ void OutPutMatrix::DrawFormatBits(QR qr) {
     SetFunctionModule(8, size - 8, true);
 }
 
+/*!
+    \brief Draws an alignment pattern in the qr code 
+    \param[in] x - Center of the alignment pattern by x-coordinate
+    \param[in] y - Center of the alignment pattern by y-coordinate
+*/
+
 void OutPutMatrix::DrawAlignmentPattern(int x, int y) {
     for (int dy = -2; dy <= 2; dy++) {
         for (int dx = -2; dx <= 2; dx++)
@@ -81,7 +112,13 @@ void OutPutMatrix::DrawAlignmentPattern(int x, int y) {
     }
 }
 
-void OutPutMatrix::DrawSearchPart(int x, int y) {
+/*!
+    \brief Draws a search pattern in the qr code 
+    \param[in] x - Center of the search pattern by x-coordinate
+    \param[in] y - Center of the search pattern by y-coordinate
+*/
+
+void OutPutMatrix::DrawSearchPattern(int x, int y) {
     for (int dy = -4; dy <= 4; dy++) {
         for (int dx = -4; dx <= 4; dx++) {
             int dist = max(abs(dx), abs(dy));
@@ -91,6 +128,11 @@ void OutPutMatrix::DrawSearchPart(int x, int y) {
         }
     }
 }
+
+/*!
+    \brief Draws a version of the QR code 
+    \param[in] qr - QR code from which we will take the information
+*/
 
 void OutPutMatrix::DrawVersion(QR qr) {
     int version = 1;
@@ -120,6 +162,12 @@ void OutPutMatrix::DrawVersion(QR qr) {
         SetFunctionModule(b, a, bit);
     }
 }
+
+/*!
+    \brief Converts matrix to .jpg file
+    \param[in] t_color - Text color of the qr code (usually it is black)
+    \param[in] b_color - Background color of the qr code (usually it is white)
+*/
 
 void OutPutMatrix::ToImg(text_colors t_color, background_colors b_color) {
     unsigned int w = size * 10 + 50;
@@ -166,9 +214,9 @@ void OutPutMatrix::ToImg(text_colors t_color, background_colors b_color) {
         filename[i] = rand() % 26 + 'a';
     }
     filename[10] = '.';
-    filename[11] = 'b';
-    filename[12] = 'm';
-    filename[13] = 'p';
+    filename[11] = 'j';
+    filename[12] = 'p';
+    filename[13] = 'g';
     filename[14] = '\0';
 
     image.save_bmp(filename);
