@@ -1,0 +1,38 @@
+\hypertarget{_lab_work___project_8cpp}{}\doxysection{C\+:/\+Programming2.2\+\_\+\+Poplavskiy/\+Programming2.2\+\_\+\+Poplavskiy/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project.cpp File Reference}
+\label{_lab_work___project_8cpp}\index{C:/Programming2.2\_Poplavskiy/Programming2.2\_Poplavskiy/LabWork\_Project/LabWork\_Project/LabWork\_Project.cpp@{C:/Programming2.2\_Poplavskiy/Programming2.2\_Poplavskiy/LabWork\_Project/LabWork\_Project/LabWork\_Project.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include \char`\"{}QRCode.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_lab_work___project_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_lab_work___project_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{_lab_work___project_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{LabWork\_Project.cpp@{LabWork\_Project.cpp}!main@{main}}
+\index{main@{main}!LabWork\_Project.cpp@{LabWork\_Project.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+Example
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{_lab_work___project_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()\{}
+\DoxyCodeLine{\mbox{\hyperlink{class_q_r}{QR}} qrcode(u8\textcolor{stringliteral}{"{}TEST1"{}}, \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432a4c41ae0ac8cc59e0caeaa4984dd5d469}{binary}});}
+\DoxyCodeLine{qrcode.Draw(qrcode, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a775364fe1f3fffe99686bf6d572a7370}{black}}, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ade7bfe6c82a2aaaee276f752cdadf3a9}{white}});}
+\DoxyCodeLine{\textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+\begin{DoxyWarning}{Warning}
+Writing \char`\"{}u8\char`\"{} before text info is necessary if you want to use binary encoding type 
+\end{DoxyWarning}

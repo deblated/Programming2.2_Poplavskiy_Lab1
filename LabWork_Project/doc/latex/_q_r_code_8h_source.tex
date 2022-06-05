@@ -1,0 +1,51 @@
+\hypertarget{_q_r_code_8h_source}{}\doxysection{QRCode.\+h}
+\label{_q_r_code_8h_source}\index{C:/Programming2.2\_Poplavskiy/Programming2.2\_Poplavskiy/LabWork\_Project/LabWork\_Project/QRCode.h@{C:/Programming2.2\_Poplavskiy/Programming2.2\_Poplavskiy/LabWork\_Project/LabWork\_Project/QRCode.h}}
+\mbox{\hyperlink{_q_r_code_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{keyword}{using }std::string;  \textcolor{keyword}{using }std::vector; }
+\DoxyCodeLine{6 }
+\DoxyCodeLine{8 \textcolor{keyword}{enum} \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\_colors}}\{ \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a775364fe1f3fffe99686bf6d572a7370}{black}}, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a6aa25890c44e0aac424e56338abe47ca}{green}}, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a8f5fa6b484ac7e2a97943d915cf224e2}{blue}}, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a44d47c7cf388651344cebc8a2613becf}{brown}} \};}
+\DoxyCodeLine{10 \textcolor{keyword}{enum} \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\_colors}} \{ \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ade7bfe6c82a2aaaee276f752cdadf3a9}{white}}, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ab31edea3fab8c488c7a8f78545e7f5a9}{yellow}}, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41aa2b3d8856786dbe594751820bc1ff2e5}{orange}} \};}
+\DoxyCodeLine{12 \textcolor{keyword}{enum} \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\_mode}} \{ \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432af4faf1727a64fc26a167dc44d6afba46}{alphanumeric}}, \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432a4c41ae0ac8cc59e0caeaa4984dd5d469}{binary}} \};}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{class }\mbox{\hyperlink{class_out_put_matrix}{OutPutMatrix}};}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{17 \textcolor{keyword}{class }\mbox{\hyperlink{class_q_r}{QR}} \{}
+\DoxyCodeLine{18     \textcolor{keyword}{private}:}
+\DoxyCodeLine{20         \textcolor{keywordtype}{string} \mbox{\hyperlink{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}{textStr}};}
+\DoxyCodeLine{22         \textcolor{keywordtype}{string} \mbox{\hyperlink{class_q_r_a490b830063cad33b6831e33992775a16}{bitStr}};}
+\DoxyCodeLine{24         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}{maskCode}} = -\/1;}
+\DoxyCodeLine{26         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a5cb6d85e089a6cb1b04ed792e324a2cb}{version}} = 1;}
+\DoxyCodeLine{28         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}{correctionLevel}} = -\/1;}
+\DoxyCodeLine{30         \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\_mode}} \mbox{\hyperlink{class_q_r_a7e0f2b126fa43cd89e85242368258d07}{mode}};}
+\DoxyCodeLine{32         vector<vector<string>> \mbox{\hyperlink{class_q_r_ac8702ab0d311b0ccd12fc826f40b65bf}{informationBlocks}};}
+\DoxyCodeLine{34         vector<vector<string>> \mbox{\hyperlink{class_q_r_a65b96e1463aeb3378fbda7aa2fed8235}{correctionBlocks}};}
+\DoxyCodeLine{35         }
+\DoxyCodeLine{36         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_a47a279ab1453ddec96030acf62b96a63}{StrEncodeBinary}}();}
+\DoxyCodeLine{37         \textcolor{keywordtype}{string} \mbox{\hyperlink{class_q_r_acaeafc875dd499c2327f059ca7e6feb8}{DecimalToBinary}}(\textcolor{keywordtype}{int} number);}
+\DoxyCodeLine{38         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a47186f1b9eed8e7b61f0420b4963bc74}{BinaryToDecimal}}(\textcolor{keywordtype}{string} str);}
+\DoxyCodeLine{39         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_a2e7c62b337426647540d27d311342854}{StrEncoderAlphanumeric}}();}
+\DoxyCodeLine{40         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_a84dc49351d20c894233c951024f990ae}{AddingServiceFields}}();}
+\DoxyCodeLine{41         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_acce2402ea7f68d395e63800b6841ff8b}{AddingExtraBits}}();}
+\DoxyCodeLine{42         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_a987de4cde965b42bc41c768c3112bc9e}{DividingToBlocks}}();}
+\DoxyCodeLine{43         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_ad8095ac6911671688494776de17cf57c}{CreatingCorrectionBytes}}();}
+\DoxyCodeLine{44         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_a4d90dfe755199a2f39e07c160ccbb9c4}{CombiningBlocks}}();}
+\DoxyCodeLine{45         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_ac414fac2a178cba58f9c6f2e56812133}{DrawingArray}}(\mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\_colors}} t\_color, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\_colors}} b\_color);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{public}:}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_afb9cb0d8a4e7e03070558ab9a0c1868f}{GetCorrectionLevel}}();}
+\DoxyCodeLine{50         \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a1f718244115b40991e49ae5aa520c6ea}{GetMaskCode}}();}
+\DoxyCodeLine{51         \textcolor{keywordtype}{string} \mbox{\hyperlink{class_q_r_a80860c30bda3740b288d363c32ac30e3}{GetInfo}}();}
+\DoxyCodeLine{52         \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\_mode}} \mbox{\hyperlink{class_q_r_a81fe869c457d053ae60bd079b04074ff}{GetMode}}();}
+\DoxyCodeLine{53         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_q_r_ac97db18ccd55cfe715531a71894a4567}{Draw}}(\mbox{\hyperlink{class_q_r}{QR}} qrcode, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\_colors}} t\_color, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\_colors}} b\_color);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{64         \mbox{\hyperlink{class_q_r_afabfa1aff6293ad5b3c64ad669ea13df}{QR}}(\textcolor{keywordtype}{string} \mbox{\hyperlink{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}{textStr}}, \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\_mode}} \mbox{\hyperlink{class_q_r_a7e0f2b126fa43cd89e85242368258d07}{mode}}, \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}{maskCode}} = rand() \% 8, \textcolor{keywordtype}{int} \mbox{\hyperlink{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}{correctionLevel}} = 2) : \mbox{\hyperlink{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}{textStr}}(\mbox{\hyperlink{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}{textStr}}), \mbox{\hyperlink{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}{maskCode}}(\mbox{\hyperlink{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}{maskCode}}), \mbox{\hyperlink{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}{correctionLevel}}(\mbox{\hyperlink{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}{correctionLevel}}), \mbox{\hyperlink{class_q_r_a7e0f2b126fa43cd89e85242368258d07}{mode}}(\mbox{\hyperlink{class_q_r_a7e0f2b126fa43cd89e85242368258d07}{mode}})}
+\DoxyCodeLine{65         \{\}}
+\DoxyCodeLine{66     \};}
+
+\end{DoxyCode}

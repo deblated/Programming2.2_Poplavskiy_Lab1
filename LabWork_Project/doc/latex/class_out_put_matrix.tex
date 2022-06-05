@@ -1,0 +1,218 @@
+\hypertarget{class_out_put_matrix}{}\doxysection{Out\+Put\+Matrix Class Reference}
+\label{class_out_put_matrix}\index{OutPutMatrix@{OutPutMatrix}}
+
+
+Additional Class in which we put the data.  
+
+
+
+
+{\ttfamily \#include $<$QRArray.\+h$>$}
+
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_out_put_matrix_a46ed9cb9aee77c623a18b9dbc44cd0b5}{Out\+Put\+Matrix}} (size\+\_\+t \mbox{\hyperlink{class_out_put_matrix_af1cd5c2da4e1e9fc171a70a0b9710e44}{size}})
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_out_put_matrix}{Out\+Put\+Matrix}} constructor that creates dynamic 2d array (matrix) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_out_put_matrix_a6192cf25b2744620c70dbc41832f806f}{$\sim$\+Out\+Put\+Matrix}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_out_put_matrix}{Out\+Put\+Matrix}} Destructor that frees allocated memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_out_put_matrix_a106dd46ba9526a559eb3418ff97680f9}{Set\+Function\+Module}} (int x, int y, bool is\+Dark)
+\begin{DoxyCompactList}\small\item\em Sets matrix modules as functional. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_out_put_matrix_ab5696131e63945991c662f4f15aec637}{Draw\+Format\+Bits}} (\mbox{\hyperlink{class_q_r}{QR}} qr)
+\begin{DoxyCompactList}\small\item\em Draws a correction level and a mask code in 2 places of the qr code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_out_put_matrix_a1d98a71eb9e3af0816011897923ed545}{Draw\+Alignment\+Pattern}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Draws an alignment pattern in the qr code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_out_put_matrix_a2745afdfa19f10ea0e88e9eb5873aa09}{Draw\+Search\+Pattern}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Draws a search pattern in the qr code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_out_put_matrix_a82f5e75e76fe8e49a95cef5fd3855e66}{Draw\+Version}} (\mbox{\hyperlink{class_q_r}{QR}} qr)
+\begin{DoxyCompactList}\small\item\em Draws a version of the \mbox{\hyperlink{class_q_r}{QR}} code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_out_put_matrix_a6e05042018c6154e267ab731d5b548b8}{To\+Img}} (\mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}} t\+\_\+color, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}} b\+\_\+color)
+\begin{DoxyCompactList}\small\item\em Converts matrix to .jpg file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{class_out_put_matrix_af1cd5c2da4e1e9fc171a70a0b9710e44}{size}}
+\begin{DoxyCompactList}\small\item\em Size of the matrix. \end{DoxyCompactList}\item 
+int $\ast$$\ast$ \mbox{\hyperlink{class_out_put_matrix_a4fd0745572dfd2d014a9a884c165944d}{array}}
+\begin{DoxyCompactList}\small\item\em 2D array (matrix) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_out_put_matrix_aeb01685af58a751026000fd7cde072a1}{QR}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_q_r}{QR}} class uses private fields and methods of \mbox{\hyperlink{class_out_put_matrix}{Out\+Put\+Matrix}} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Additional Class in which we put the data. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_out_put_matrix_a46ed9cb9aee77c623a18b9dbc44cd0b5}\label{class_out_put_matrix_a46ed9cb9aee77c623a18b9dbc44cd0b5}} 
+\index{OutPutMatrix@{OutPutMatrix}!OutPutMatrix@{OutPutMatrix}}
+\index{OutPutMatrix@{OutPutMatrix}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{OutPutMatrix()}{OutPutMatrix()}}
+{\footnotesize\ttfamily Out\+Put\+Matrix\+::\+Out\+Put\+Matrix (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{\hyperlink{class_out_put_matrix}{Out\+Put\+Matrix}} constructor that creates dynamic 2d array (matrix) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em size} & -\/ Sets the matrix size \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_out_put_matrix_a6192cf25b2744620c70dbc41832f806f}\label{class_out_put_matrix_a6192cf25b2744620c70dbc41832f806f}} 
+\index{OutPutMatrix@{OutPutMatrix}!````~OutPutMatrix@{$\sim$OutPutMatrix}}
+\index{````~OutPutMatrix@{$\sim$OutPutMatrix}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{$\sim$OutPutMatrix()}{~OutPutMatrix()}}
+{\footnotesize\ttfamily Out\+Put\+Matrix\+::$\sim$\+Out\+Put\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{\hyperlink{class_out_put_matrix}{Out\+Put\+Matrix}} Destructor that frees allocated memory. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_out_put_matrix_a1d98a71eb9e3af0816011897923ed545}\label{class_out_put_matrix_a1d98a71eb9e3af0816011897923ed545}} 
+\index{OutPutMatrix@{OutPutMatrix}!DrawAlignmentPattern@{DrawAlignmentPattern}}
+\index{DrawAlignmentPattern@{DrawAlignmentPattern}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{DrawAlignmentPattern()}{DrawAlignmentPattern()}}
+{\footnotesize\ttfamily void Out\+Put\+Matrix\+::\+Draw\+Alignment\+Pattern (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Draws an alignment pattern in the qr code. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & -\/ Center of the alignment pattern by x-\/coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & -\/ Center of the alignment pattern by y-\/coordinate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_out_put_matrix_ab5696131e63945991c662f4f15aec637}\label{class_out_put_matrix_ab5696131e63945991c662f4f15aec637}} 
+\index{OutPutMatrix@{OutPutMatrix}!DrawFormatBits@{DrawFormatBits}}
+\index{DrawFormatBits@{DrawFormatBits}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{DrawFormatBits()}{DrawFormatBits()}}
+{\footnotesize\ttfamily void Out\+Put\+Matrix\+::\+Draw\+Format\+Bits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_q_r}{QR}}}]{qr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Draws a correction level and a mask code in 2 places of the qr code. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em qr} & -\/ qr code from which we will take the information \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_out_put_matrix_a2745afdfa19f10ea0e88e9eb5873aa09}\label{class_out_put_matrix_a2745afdfa19f10ea0e88e9eb5873aa09}} 
+\index{OutPutMatrix@{OutPutMatrix}!DrawSearchPattern@{DrawSearchPattern}}
+\index{DrawSearchPattern@{DrawSearchPattern}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{DrawSearchPattern()}{DrawSearchPattern()}}
+{\footnotesize\ttfamily void Out\+Put\+Matrix\+::\+Draw\+Search\+Pattern (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Draws a search pattern in the qr code. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & -\/ Center of the search pattern by x-\/coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & -\/ Center of the search pattern by y-\/coordinate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_out_put_matrix_a82f5e75e76fe8e49a95cef5fd3855e66}\label{class_out_put_matrix_a82f5e75e76fe8e49a95cef5fd3855e66}} 
+\index{OutPutMatrix@{OutPutMatrix}!DrawVersion@{DrawVersion}}
+\index{DrawVersion@{DrawVersion}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{DrawVersion()}{DrawVersion()}}
+{\footnotesize\ttfamily void Out\+Put\+Matrix\+::\+Draw\+Version (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_q_r}{QR}}}]{qr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Draws a version of the \mbox{\hyperlink{class_q_r}{QR}} code. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em qr} & -\/ \mbox{\hyperlink{class_q_r}{QR}} code from which we will take the information \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_out_put_matrix_a106dd46ba9526a559eb3418ff97680f9}\label{class_out_put_matrix_a106dd46ba9526a559eb3418ff97680f9}} 
+\index{OutPutMatrix@{OutPutMatrix}!SetFunctionModule@{SetFunctionModule}}
+\index{SetFunctionModule@{SetFunctionModule}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{SetFunctionModule()}{SetFunctionModule()}}
+{\footnotesize\ttfamily void Out\+Put\+Matrix\+::\+Set\+Function\+Module (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{bool}]{is\+Dark }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Sets matrix modules as functional. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & -\/ The x-\/coordinate of the bit in the matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & -\/ The y-\/coordinate of the bit in the matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+Dark} & -\/ Bit color boolean (black or white)\\
+\hline
+\end{DoxyParams}
+There ara 4 types of modules\+: 0 -\/ white non-\/functional 1 -\/ black non-\/functional 3 -\/ black functional 4 -\/ white functional \mbox{\Hypertarget{class_out_put_matrix_a6e05042018c6154e267ab731d5b548b8}\label{class_out_put_matrix_a6e05042018c6154e267ab731d5b548b8}} 
+\index{OutPutMatrix@{OutPutMatrix}!ToImg@{ToImg}}
+\index{ToImg@{ToImg}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{ToImg()}{ToImg()}}
+{\footnotesize\ttfamily void Out\+Put\+Matrix\+::\+To\+Img (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}}}]{t\+\_\+color,  }\item[{\mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}}}]{b\+\_\+color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts matrix to .jpg file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em t\+\_\+color} & -\/ Text color of the qr code (usually it is black) \\
+\hline
+\mbox{\texttt{ in}}  & {\em b\+\_\+color} & -\/ Background color of the qr code (usually it is white) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_out_put_matrix_aeb01685af58a751026000fd7cde072a1}\label{class_out_put_matrix_aeb01685af58a751026000fd7cde072a1}} 
+\index{OutPutMatrix@{OutPutMatrix}!QR@{QR}}
+\index{QR@{QR}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{QR}{QR}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_q_r}{QR}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\mbox{\hyperlink{class_q_r}{QR}} class uses private fields and methods of \mbox{\hyperlink{class_out_put_matrix}{Out\+Put\+Matrix}} class. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_out_put_matrix_a4fd0745572dfd2d014a9a884c165944d}\label{class_out_put_matrix_a4fd0745572dfd2d014a9a884c165944d}} 
+\index{OutPutMatrix@{OutPutMatrix}!array@{array}}
+\index{array@{array}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{array}{array}}
+{\footnotesize\ttfamily int$\ast$$\ast$ Out\+Put\+Matrix\+::array\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+2D array (matrix) 
+
+\mbox{\Hypertarget{class_out_put_matrix_af1cd5c2da4e1e9fc171a70a0b9710e44}\label{class_out_put_matrix_af1cd5c2da4e1e9fc171a70a0b9710e44}} 
+\index{OutPutMatrix@{OutPutMatrix}!size@{size}}
+\index{size@{size}!OutPutMatrix@{OutPutMatrix}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily size\+\_\+t Out\+Put\+Matrix\+::size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Size of the matrix. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project/\mbox{\hyperlink{_q_r_array_8h}{QRArray.\+h}}\item 
+C\+:/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project/\mbox{\hyperlink{_q_r_array_8cpp}{QRArray.\+cpp}}\end{DoxyCompactItemize}

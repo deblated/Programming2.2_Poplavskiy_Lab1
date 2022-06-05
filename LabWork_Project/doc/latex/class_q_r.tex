@@ -1,0 +1,363 @@
+\hypertarget{class_q_r}{}\doxysection{QR Class Reference}
+\label{class_q_r}\index{QR@{QR}}
+
+
+Main Class with the information about qr code.  
+
+
+
+
+{\ttfamily \#include $<$QRCode.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_q_r_afb9cb0d8a4e7e03070558ab9a0c1868f}{Get\+Correction\+Level}} ()
+\begin{DoxyCompactList}\small\item\em Correction level getter. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_q_r_a1f718244115b40991e49ae5aa520c6ea}{Get\+Mask\+Code}} ()
+\begin{DoxyCompactList}\small\item\em Mask code getter. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_q_r_a80860c30bda3740b288d363c32ac30e3}{Get\+Info}} ()
+\begin{DoxyCompactList}\small\item\em Text getter. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}} \mbox{\hyperlink{class_q_r_a81fe869c457d053ae60bd079b04074ff}{Get\+Mode}} ()
+\begin{DoxyCompactList}\small\item\em Encoding mode getter. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_ac97db18ccd55cfe715531a71894a4567}{Draw}} (\mbox{\hyperlink{class_q_r}{QR}} qrcode, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}} t\+\_\+color, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}} b\+\_\+color)
+\begin{DoxyCompactList}\small\item\em Calls all necessary functions to draw qr code. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_q_r_afabfa1aff6293ad5b3c64ad669ea13df}{QR}} (string \mbox{\hyperlink{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}{text\+Str}}, \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}} \mbox{\hyperlink{class_q_r_a7e0f2b126fa43cd89e85242368258d07}{mode}}, int \mbox{\hyperlink{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}{mask\+Code}}=rand() \% 8, int \mbox{\hyperlink{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}{correction\+Level}}=2)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_q_r}{QR}} constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_q_r_a47a279ab1453ddec96030acf62b96a63}{Str\+Encode\+Binary}} ()
+\begin{DoxyCompactList}\small\item\em Converts text to binary string in binary encoding mode. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_q_r_acaeafc875dd499c2327f059ca7e6feb8}{Decimal\+To\+Binary}} (int number)
+\begin{DoxyCompactList}\small\item\em Converts decimal number to binary. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_q_r_a47186f1b9eed8e7b61f0420b4963bc74}{Binary\+To\+Decimal}} (string str)
+\begin{DoxyCompactList}\small\item\em Converts binary number to decimal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_a2e7c62b337426647540d27d311342854}{Str\+Encoder\+Alphanumeric}} ()
+\begin{DoxyCompactList}\small\item\em Converts text to binary string in alphanumeric encoding mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_a84dc49351d20c894233c951024f990ae}{Adding\+Service\+Fields}} ()
+\begin{DoxyCompactList}\small\item\em Adds service fields such as\+: size of the info to encode, version to be used and encoding mode ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_acce2402ea7f68d395e63800b6841ff8b}{Adding\+Extra\+Bits}} ()
+\begin{DoxyCompactList}\small\item\em Adds extra bits to make a bit string of the desired length. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_a987de4cde965b42bc41c768c3112bc9e}{Dividing\+To\+Blocks}} ()
+\begin{DoxyCompactList}\small\item\em Divides the data received from \mbox{\hyperlink{class_q_r_a84dc49351d20c894233c951024f990ae}{Adding\+Service\+Fields()}} to blocks. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_ad8095ac6911671688494776de17cf57c}{Creating\+Correction\+Bytes}} ()
+\begin{DoxyCompactList}\small\item\em Creates blocks with correction bytes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_a4d90dfe755199a2f39e07c160ccbb9c4}{Combining\+Blocks}} ()
+\begin{DoxyCompactList}\small\item\em Combines blocks to make a bit string of the desired length. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_q_r_ac414fac2a178cba58f9c6f2e56812133}{Drawing\+Array}} (\mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}} t\+\_\+color, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}} b\+\_\+color)
+\begin{DoxyCompactList}\small\item\em Puts all information into the matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}{text\+Str}}
+\begin{DoxyCompactList}\small\item\em Text to encode. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_q_r_a490b830063cad33b6831e33992775a16}{bit\+Str}}
+\begin{DoxyCompactList}\small\item\em Bit string. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}{mask\+Code}} = -\/1
+\begin{DoxyCompactList}\small\item\em Mask code. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_q_r_a5cb6d85e089a6cb1b04ed792e324a2cb}{version}} = 1
+\begin{DoxyCompactList}\small\item\em Version. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}{correction\+Level}} = -\/1
+\begin{DoxyCompactList}\small\item\em Correction level. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}} \mbox{\hyperlink{class_q_r_a7e0f2b126fa43cd89e85242368258d07}{mode}}
+\begin{DoxyCompactList}\small\item\em Mode of encoding. \end{DoxyCompactList}\item 
+vector$<$ vector$<$ string $>$ $>$ \mbox{\hyperlink{class_q_r_ac8702ab0d311b0ccd12fc826f40b65bf}{information\+Blocks}}
+\begin{DoxyCompactList}\small\item\em Blocks with information. \end{DoxyCompactList}\item 
+vector$<$ vector$<$ string $>$ $>$ \mbox{\hyperlink{class_q_r_a65b96e1463aeb3378fbda7aa2fed8235}{correction\+Blocks}}
+\begin{DoxyCompactList}\small\item\em Blocks with correction data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main Class with the information about qr code. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_q_r_afabfa1aff6293ad5b3c64ad669ea13df}\label{class_q_r_afabfa1aff6293ad5b3c64ad669ea13df}} 
+\index{QR@{QR}!QR@{QR}}
+\index{QR@{QR}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{QR()}{QR()}}
+{\footnotesize\ttfamily QR\+::\+QR (\begin{DoxyParamCaption}\item[{string}]{text\+Str,  }\item[{\mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}}}]{mode,  }\item[{int}]{mask\+Code = {\ttfamily rand()~\%~8},  }\item[{int}]{correction\+Level = {\ttfamily 2} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{class_q_r}{QR}} constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em text\+Str} & -\/ Info to encode \\
+\hline
+\mbox{\texttt{ in}}  & {\em mode} & -\/ Mode of encoding \\
+\hline
+\mbox{\texttt{ in}}  & {\em mask\+Code} & -\/ code of mask (from 0 to 7) \\
+\hline
+\mbox{\texttt{ in}}  & {\em correction\+Level} & -\/ correction level (from 1 to 4)\\
+\hline
+\end{DoxyParams}
+Constructor creates empty qr code with info to encode, mode of encoding, mask code (random by default) and correction level(2 by default) 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_q_r_acce2402ea7f68d395e63800b6841ff8b}\label{class_q_r_acce2402ea7f68d395e63800b6841ff8b}} 
+\index{QR@{QR}!AddingExtraBits@{AddingExtraBits}}
+\index{AddingExtraBits@{AddingExtraBits}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{AddingExtraBits()}{AddingExtraBits()}}
+{\footnotesize\ttfamily void QR\+::\+Adding\+Extra\+Bits (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Adds extra bits to make a bit string of the desired length. 
+
+\mbox{\Hypertarget{class_q_r_a84dc49351d20c894233c951024f990ae}\label{class_q_r_a84dc49351d20c894233c951024f990ae}} 
+\index{QR@{QR}!AddingServiceFields@{AddingServiceFields}}
+\index{AddingServiceFields@{AddingServiceFields}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{AddingServiceFields()}{AddingServiceFields()}}
+{\footnotesize\ttfamily void QR\+::\+Adding\+Service\+Fields (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Adds service fields such as\+: size of the info to encode, version to be used and encoding mode ~\newline
+ 
+
+\mbox{\Hypertarget{class_q_r_a47186f1b9eed8e7b61f0420b4963bc74}\label{class_q_r_a47186f1b9eed8e7b61f0420b4963bc74}} 
+\index{QR@{QR}!BinaryToDecimal@{BinaryToDecimal}}
+\index{BinaryToDecimal@{BinaryToDecimal}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{BinaryToDecimal()}{BinaryToDecimal()}}
+{\footnotesize\ttfamily int QR\+::\+Binary\+To\+Decimal (\begin{DoxyParamCaption}\item[{string}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts binary number to decimal. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str} & -\/ Value to convert \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_q_r_a4d90dfe755199a2f39e07c160ccbb9c4}\label{class_q_r_a4d90dfe755199a2f39e07c160ccbb9c4}} 
+\index{QR@{QR}!CombiningBlocks@{CombiningBlocks}}
+\index{CombiningBlocks@{CombiningBlocks}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{CombiningBlocks()}{CombiningBlocks()}}
+{\footnotesize\ttfamily void QR\+::\+Combining\+Blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Combines blocks to make a bit string of the desired length. 
+
+\mbox{\Hypertarget{class_q_r_ad8095ac6911671688494776de17cf57c}\label{class_q_r_ad8095ac6911671688494776de17cf57c}} 
+\index{QR@{QR}!CreatingCorrectionBytes@{CreatingCorrectionBytes}}
+\index{CreatingCorrectionBytes@{CreatingCorrectionBytes}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{CreatingCorrectionBytes()}{CreatingCorrectionBytes()}}
+{\footnotesize\ttfamily void QR\+::\+Creating\+Correction\+Bytes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Creates blocks with correction bytes. 
+
+\mbox{\Hypertarget{class_q_r_acaeafc875dd499c2327f059ca7e6feb8}\label{class_q_r_acaeafc875dd499c2327f059ca7e6feb8}} 
+\index{QR@{QR}!DecimalToBinary@{DecimalToBinary}}
+\index{DecimalToBinary@{DecimalToBinary}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{DecimalToBinary()}{DecimalToBinary()}}
+{\footnotesize\ttfamily string QR\+::\+Decimal\+To\+Binary (\begin{DoxyParamCaption}\item[{int}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts decimal number to binary. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em number} & -\/ Value to convert \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_q_r_a987de4cde965b42bc41c768c3112bc9e}\label{class_q_r_a987de4cde965b42bc41c768c3112bc9e}} 
+\index{QR@{QR}!DividingToBlocks@{DividingToBlocks}}
+\index{DividingToBlocks@{DividingToBlocks}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{DividingToBlocks()}{DividingToBlocks()}}
+{\footnotesize\ttfamily void QR\+::\+Dividing\+To\+Blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Divides the data received from \mbox{\hyperlink{class_q_r_a84dc49351d20c894233c951024f990ae}{Adding\+Service\+Fields()}} to blocks. 
+
+\mbox{\Hypertarget{class_q_r_ac97db18ccd55cfe715531a71894a4567}\label{class_q_r_ac97db18ccd55cfe715531a71894a4567}} 
+\index{QR@{QR}!Draw@{Draw}}
+\index{Draw@{Draw}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void QR\+::\+Draw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_q_r}{QR}}}]{qrcode,  }\item[{\mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}}}]{t\+\_\+color,  }\item[{\mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}}}]{b\+\_\+color }\end{DoxyParamCaption})}
+
+
+
+Calls all necessary functions to draw qr code. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em t\+\_\+color} & -\/ Text color of the qr code (usually it is black) \\
+\hline
+\mbox{\texttt{ in}}  & {\em b\+\_\+color} & -\/ Background color of the qr code (usually it is white) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_q_r_ac414fac2a178cba58f9c6f2e56812133}\label{class_q_r_ac414fac2a178cba58f9c6f2e56812133}} 
+\index{QR@{QR}!DrawingArray@{DrawingArray}}
+\index{DrawingArray@{DrawingArray}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{DrawingArray()}{DrawingArray()}}
+{\footnotesize\ttfamily void QR\+::\+Drawing\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}}}]{t\+\_\+color,  }\item[{\mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}}}]{b\+\_\+color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Puts all information into the matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em t\+\_\+color} & -\/ Text color of the qr code (usually it is black) \\
+\hline
+\mbox{\texttt{ in}}  & {\em b\+\_\+color} & -\/ Background color of the qr code (usually it is white) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_q_r_afb9cb0d8a4e7e03070558ab9a0c1868f}\label{class_q_r_afb9cb0d8a4e7e03070558ab9a0c1868f}} 
+\index{QR@{QR}!GetCorrectionLevel@{GetCorrectionLevel}}
+\index{GetCorrectionLevel@{GetCorrectionLevel}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{GetCorrectionLevel()}{GetCorrectionLevel()}}
+{\footnotesize\ttfamily int QR\+::\+Get\+Correction\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Correction level getter. 
+
+\mbox{\Hypertarget{class_q_r_a80860c30bda3740b288d363c32ac30e3}\label{class_q_r_a80860c30bda3740b288d363c32ac30e3}} 
+\index{QR@{QR}!GetInfo@{GetInfo}}
+\index{GetInfo@{GetInfo}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{GetInfo()}{GetInfo()}}
+{\footnotesize\ttfamily string QR\+::\+Get\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Text getter. 
+
+\mbox{\Hypertarget{class_q_r_a1f718244115b40991e49ae5aa520c6ea}\label{class_q_r_a1f718244115b40991e49ae5aa520c6ea}} 
+\index{QR@{QR}!GetMaskCode@{GetMaskCode}}
+\index{GetMaskCode@{GetMaskCode}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{GetMaskCode()}{GetMaskCode()}}
+{\footnotesize\ttfamily int QR\+::\+Get\+Mask\+Code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Mask code getter. 
+
+\mbox{\Hypertarget{class_q_r_a81fe869c457d053ae60bd079b04074ff}\label{class_q_r_a81fe869c457d053ae60bd079b04074ff}} 
+\index{QR@{QR}!GetMode@{GetMode}}
+\index{GetMode@{GetMode}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{GetMode()}{GetMode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}} QR\+::\+Get\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Encoding mode getter. 
+
+\mbox{\Hypertarget{class_q_r_a47a279ab1453ddec96030acf62b96a63}\label{class_q_r_a47a279ab1453ddec96030acf62b96a63}} 
+\index{QR@{QR}!StrEncodeBinary@{StrEncodeBinary}}
+\index{StrEncodeBinary@{StrEncodeBinary}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{StrEncodeBinary()}{StrEncodeBinary()}}
+{\footnotesize\ttfamily void QR\+::\+Str\+Encode\+Binary (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts text to binary string in binary encoding mode. 
+
+\mbox{\Hypertarget{class_q_r_a2e7c62b337426647540d27d311342854}\label{class_q_r_a2e7c62b337426647540d27d311342854}} 
+\index{QR@{QR}!StrEncoderAlphanumeric@{StrEncoderAlphanumeric}}
+\index{StrEncoderAlphanumeric@{StrEncoderAlphanumeric}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{StrEncoderAlphanumeric()}{StrEncoderAlphanumeric()}}
+{\footnotesize\ttfamily void QR\+::\+Str\+Encoder\+Alphanumeric (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts text to binary string in alphanumeric encoding mode. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_q_r_a490b830063cad33b6831e33992775a16}\label{class_q_r_a490b830063cad33b6831e33992775a16}} 
+\index{QR@{QR}!bitStr@{bitStr}}
+\index{bitStr@{bitStr}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{bitStr}{bitStr}}
+{\footnotesize\ttfamily string QR\+::bit\+Str\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Bit string. 
+
+\mbox{\Hypertarget{class_q_r_a65b96e1463aeb3378fbda7aa2fed8235}\label{class_q_r_a65b96e1463aeb3378fbda7aa2fed8235}} 
+\index{QR@{QR}!correctionBlocks@{correctionBlocks}}
+\index{correctionBlocks@{correctionBlocks}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{correctionBlocks}{correctionBlocks}}
+{\footnotesize\ttfamily vector$<$vector$<$string$>$ $>$ QR\+::correction\+Blocks\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Blocks with correction data. 
+
+\mbox{\Hypertarget{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}\label{class_q_r_a69e381d6a7cadd9c61e07097aa3402f9}} 
+\index{QR@{QR}!correctionLevel@{correctionLevel}}
+\index{correctionLevel@{correctionLevel}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{correctionLevel}{correctionLevel}}
+{\footnotesize\ttfamily int QR\+::correction\+Level = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Correction level. 
+
+\mbox{\Hypertarget{class_q_r_ac8702ab0d311b0ccd12fc826f40b65bf}\label{class_q_r_ac8702ab0d311b0ccd12fc826f40b65bf}} 
+\index{QR@{QR}!informationBlocks@{informationBlocks}}
+\index{informationBlocks@{informationBlocks}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{informationBlocks}{informationBlocks}}
+{\footnotesize\ttfamily vector$<$vector$<$string$>$ $>$ QR\+::information\+Blocks\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Blocks with information. 
+
+\mbox{\Hypertarget{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}\label{class_q_r_a38529a8f529daf133fd009ea1c0e3e1c}} 
+\index{QR@{QR}!maskCode@{maskCode}}
+\index{maskCode@{maskCode}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{maskCode}{maskCode}}
+{\footnotesize\ttfamily int QR\+::mask\+Code = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Mask code. 
+
+\mbox{\Hypertarget{class_q_r_a7e0f2b126fa43cd89e85242368258d07}\label{class_q_r_a7e0f2b126fa43cd89e85242368258d07}} 
+\index{QR@{QR}!mode@{mode}}
+\index{mode@{mode}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}} QR\+::mode\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Mode of encoding. 
+
+\mbox{\Hypertarget{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}\label{class_q_r_a821d3785b624f50b83c8bf6218a5bec1}} 
+\index{QR@{QR}!textStr@{textStr}}
+\index{textStr@{textStr}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{textStr}{textStr}}
+{\footnotesize\ttfamily string QR\+::text\+Str\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Text to encode. 
+
+\mbox{\Hypertarget{class_q_r_a5cb6d85e089a6cb1b04ed792e324a2cb}\label{class_q_r_a5cb6d85e089a6cb1b04ed792e324a2cb}} 
+\index{QR@{QR}!version@{version}}
+\index{version@{version}!QR@{QR}}
+\doxysubsubsection{\texorpdfstring{version}{version}}
+{\footnotesize\ttfamily int QR\+::version = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Version. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project/\mbox{\hyperlink{_q_r_code_8h}{QRCode.\+h}}\item 
+C\+:/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Programming2.\+2\+\_\+\+Poplavskiy/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project/\mbox{\hyperlink{_q_r_code_8cpp}{QRCode.\+cpp}}\end{DoxyCompactItemize}

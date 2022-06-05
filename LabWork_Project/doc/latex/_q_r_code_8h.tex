@@ -1,0 +1,102 @@
+\hypertarget{_q_r_code_8h}{}\doxysection{C\+:/\+Programming2.2\+\_\+\+Poplavskiy/\+Programming2.2\+\_\+\+Poplavskiy/\+Lab\+Work\+\_\+\+Project/\+Lab\+Work\+\_\+\+Project/\+QRCode.h File Reference}
+\label{_q_r_code_8h}\index{C:/Programming2.2\_Poplavskiy/Programming2.2\_Poplavskiy/LabWork\_Project/LabWork\_Project/QRCode.h@{C:/Programming2.2\_Poplavskiy/Programming2.2\_Poplavskiy/LabWork\_Project/LabWork\_Project/QRCode.h}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_q_r}{QR}}
+\begin{DoxyCompactList}\small\item\em Main Class with the information about qr code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}} \{ \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a775364fe1f3fffe99686bf6d572a7370}{black}}
+, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a6aa25890c44e0aac424e56338abe47ca}{green}}
+, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a8f5fa6b484ac7e2a97943d915cf224e2}{blue}}
+, \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a44d47c7cf388651344cebc8a2613becf}{brown}}
+ \}
+\begin{DoxyCompactList}\small\item\em List of text colors in qr code. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}} \{ \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ade7bfe6c82a2aaaee276f752cdadf3a9}{white}}
+, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ab31edea3fab8c488c7a8f78545e7f5a9}{yellow}}
+, \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41aa2b3d8856786dbe594751820bc1ff2e5}{orange}}
+ \}
+\begin{DoxyCompactList}\small\item\em List of background colors in qr code. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}} \{ \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432af4faf1727a64fc26a167dc44d6afba46}{alphanumeric}}
+, \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432a4c41ae0ac8cc59e0caeaa4984dd5d469}{binary}}
+ \}
+\begin{DoxyCompactList}\small\item\em List of modes of encoding. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}\label{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}} 
+\index{QRCode.h@{QRCode.h}!background\_colors@{background\_colors}}
+\index{background\_colors@{background\_colors}!QRCode.h@{QRCode.h}}
+\doxysubsubsection{\texorpdfstring{background\_colors}{background\_colors}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41}{background\+\_\+colors}}}
+
+
+
+List of background colors in qr code. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{white@{white}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!white@{white}}}\mbox{\Hypertarget{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ade7bfe6c82a2aaaee276f752cdadf3a9}\label{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ade7bfe6c82a2aaaee276f752cdadf3a9}} 
+white&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{yellow@{yellow}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!yellow@{yellow}}}\mbox{\Hypertarget{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ab31edea3fab8c488c7a8f78545e7f5a9}\label{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41ab31edea3fab8c488c7a8f78545e7f5a9}} 
+yellow&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{orange@{orange}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!orange@{orange}}}\mbox{\Hypertarget{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41aa2b3d8856786dbe594751820bc1ff2e5}\label{_q_r_code_8h_a93c7f4ce1631d33b702b38ea38b51b41aa2b3d8856786dbe594751820bc1ff2e5}} 
+orange&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}\label{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}} 
+\index{QRCode.h@{QRCode.h}!encoding\_mode@{encoding\_mode}}
+\index{encoding\_mode@{encoding\_mode}!QRCode.h@{QRCode.h}}
+\doxysubsubsection{\texorpdfstring{encoding\_mode}{encoding\_mode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432}{encoding\+\_\+mode}}}
+
+
+
+List of modes of encoding. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{alphanumeric@{alphanumeric}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!alphanumeric@{alphanumeric}}}\mbox{\Hypertarget{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432af4faf1727a64fc26a167dc44d6afba46}\label{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432af4faf1727a64fc26a167dc44d6afba46}} 
+alphanumeric&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{binary@{binary}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!binary@{binary}}}\mbox{\Hypertarget{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432a4c41ae0ac8cc59e0caeaa4984dd5d469}\label{_q_r_code_8h_ab612005429556745d30d99ea9d1f4432a4c41ae0ac8cc59e0caeaa4984dd5d469}} 
+binary&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}\label{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}} 
+\index{QRCode.h@{QRCode.h}!text\_colors@{text\_colors}}
+\index{text\_colors@{text\_colors}!QRCode.h@{QRCode.h}}
+\doxysubsubsection{\texorpdfstring{text\_colors}{text\_colors}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4}{text\+\_\+colors}}}
+
+
+
+List of text colors in qr code. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{black@{black}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!black@{black}}}\mbox{\Hypertarget{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a775364fe1f3fffe99686bf6d572a7370}\label{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a775364fe1f3fffe99686bf6d572a7370}} 
+black&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{green@{green}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!green@{green}}}\mbox{\Hypertarget{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a6aa25890c44e0aac424e56338abe47ca}\label{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a6aa25890c44e0aac424e56338abe47ca}} 
+green&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{blue@{blue}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!blue@{blue}}}\mbox{\Hypertarget{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a8f5fa6b484ac7e2a97943d915cf224e2}\label{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a8f5fa6b484ac7e2a97943d915cf224e2}} 
+blue&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{brown@{brown}!QRCode.h@{QRCode.h}}\index{QRCode.h@{QRCode.h}!brown@{brown}}}\mbox{\Hypertarget{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a44d47c7cf388651344cebc8a2613becf}\label{_q_r_code_8h_ad0a7f4c9429b8a912eb00dcc9eea61f4a44d47c7cf388651344cebc8a2613becf}} 
+brown&\\
+\hline
+
+\end{DoxyEnumFields}
