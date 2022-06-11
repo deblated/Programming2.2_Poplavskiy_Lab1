@@ -507,8 +507,8 @@ using std::begin; using std::end; using std::copy; using std::stoi;
     */
 
     void QR::Draw(QR qrcode, text_colors t_color, background_colors b_color) {
-        assert((t_color == black || t_color == blue || t_color == brown || t_color == green) && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
-        assert((b_color == white || b_color == yellow || b_color == orange) && "b_color value can only be 'white', 'yellow' or 'orange'");
+        //assert((t_color == black || t_color == blue || t_color == brown || t_color == green) && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
+        //assert((b_color == white || b_color == yellow || b_color == orange) && "b_color value can only be 'white', 'yellow' or 'orange'");
         assert(!(qrcode.correctionLevel > 4 || qrcode.correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
         assert(!(qrcode.maskCode > 7 || qrcode.maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");
         assert(!(qrcode.textStr.size() > MaximalAmountOfInfo[qrcode.correctionLevel][40]) && "Length of string is more than allowed");
