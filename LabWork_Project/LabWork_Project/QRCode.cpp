@@ -131,18 +131,18 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         }
 
         //looking for the right version
-        switch (GetMode()) {
-        case alphanumeric:
-            while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version] && version<40) {
-                version++;
-            }
-            break;
-        case binary:
+        //switch (GetMode()) {
+        //case alphanumeric:
+        //    while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version] && version<40) {
+        //        version++;
+        //    }
+        //    break;
+        //case binary:
             while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version] && version<40) {
                 version++;
             }
-            break;
-        }
+        //    break;
+        //}
 
         if (needToPlusVersion==true) {
             version++;
@@ -523,9 +523,9 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         //assert((b_color == white || b_color == yellow || b_color == orange) && "b_color value can only be 'white', 'yellow' or 'orange'");
         assert(!(correctionLevel > 4 || correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
         assert(!(maskCode > 7 || maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");
-        if (mode == alphanumeric) {
-            assert(!(textStr.size() > MaximalAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
-        }
+        //if (mode == alphanumeric) {
+        //    assert(!(textStr.size() > MaximalAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
+        //}
         assert(!(textStr.size() == 0) && "Length can't be equal to 0");
         switch (GetMode()) {
         case alphanumeric:

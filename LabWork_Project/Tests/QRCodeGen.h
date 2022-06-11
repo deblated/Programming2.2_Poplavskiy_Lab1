@@ -173,18 +173,18 @@ void QR::AddingServiceFields(bool needToPlusVersion) {
     }
 
     //looking for the right version
-    switch (GetMode()) {
-    case alphanumeric:
-        while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version] && version < 40) {
-            version++;
-        }
-        break;
-    case binary:
+    //switch (GetMode()) {
+    //case alphanumeric:
+    //    while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version] && version < 40) {
+    //        version++;
+    //    }
+    //    break;
+    //case binary:
         while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version] && version < 40) {
             version++;
         }
-        break;
-    }
+    //    break;
+    //}
 
     if (needToPlusVersion == true) {
         version++;
@@ -512,9 +512,9 @@ void QR::Draw(text_colors t_color, background_colors b_color) {
     assert(!(correctionLevel > 4 || correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
     assert(!(maskCode > 7 || maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");  
     assert(!(textStr.size() == 0) && "Length can't be equal to 0");
-    if (mode == alphanumeric) {
-        assert(!(textStr.size() > MaximalAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
-    }
+    //if (mode == alphanumeric) {
+    //    assert(!(textStr.size() > MaximalAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
+    //}
 
 
     switch (GetMode()) {

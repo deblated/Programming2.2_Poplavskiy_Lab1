@@ -44,8 +44,15 @@ TEST_CLASS(QRTestClass)
             qrcode.AddingServiceFields();
             Assert::IsTrue(qrcode.version == 2);
             Assert::IsTrue(qrcode1.version == 6);
-
-
         }
+        TEST_METHOD(TestExtraBits)
+        {
+            QR qrcode(u8"すべての人間は、生まれながらにして自由であり、かつ、尊厳.", binary);
+            qrcode.StrEncodeBinary();
+            qrcode.AddingServiceFields();
+            qrcode.AddingExtraBits();
+            Assert::IsTrue(qrcode.bitStr.size() == MaxAmountOfInfo[qrcode.correctionLevel][qrcode.version]);
+        }
+
 	};
 
