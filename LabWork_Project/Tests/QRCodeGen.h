@@ -59,7 +59,7 @@ class QR {
         string DecimalToBinary(int number);
         int BinaryToDecimal(string str);
         void StrEncoderAlphanumeric();
-        void AddingServiceFields();
+        void AddingServiceFields(bool needToPlusVersion=false);
         void AddingExtraBits();
         void DividingToBlocks();
         void CreatingCorrectionBytes();
@@ -72,7 +72,7 @@ class QR {
         int GetMaskCode();
         string GetInfo();
         encoding_mode GetMode();
-        void Draw(QR qrcode, text_colors t_color, background_colors b_color);
+        void Draw(text_colors t_color, background_colors b_color);
 
         QR(string textStr, encoding_mode mode, int maskCode = rand() % 8, int correctionLevel = 2) : textStr(textStr), maskCode(maskCode), correctionLevel(correctionLevel), mode(mode)
         {}
@@ -155,7 +155,7 @@ void QR::StrEncoderAlphanumeric() {
 
     bitStr = result;
 }
-void QR::AddingServiceFields() {
+void QR::AddingServiceFields(bool needToPlusVersion) {
     string buffer;
     string result;
 
@@ -175,15 +175,19 @@ void QR::AddingServiceFields() {
     //looking for the right version
     switch (GetMode()) {
     case alphanumeric:
-        while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version]) {
+        while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version] && version < 40) {
             version++;
         }
         break;
     case binary:
-        while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version]) {
+        while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version] && version < 40) {
             version++;
         }
         break;
+    }
+
+    if (needToPlusVersion == true) {
+        version++;
     }
 
     //length adjustment
@@ -242,7 +246,15 @@ void QR::AddingServiceFields() {
 
     result = buffer + bitStr;
 
-    bitStr = result;
+    if (result.size() > MaxAmountOfInfo[correctionLevel][version]) {
+        if (version == 40) {
+            assert(!(result.size() > MaxAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
+        }
+        AddingServiceFields(true);
+    }
+    else {
+        bitStr = result;
+    }
 }
 void QR::AddingExtraBits() {
     string result;
@@ -494,28 +506,32 @@ string QR::GetInfo() {
 encoding_mode QR::GetMode() {
     return mode;
 }
-void QR::Draw(QR qrcode, text_colors t_color, background_colors b_color) {
+void QR::Draw(text_colors t_color, background_colors b_color) {
     //assert((t_color == black || t_color == blue || t_color == brown || t_color == green) && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
     //assert((b_color == white || b_color == yellow || b_color == orange) && "b_color value can only be 'white', 'yellow' or 'orange'");
-    assert(!(qrcode.correctionLevel > 4 || qrcode.correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
-    assert(!(qrcode.maskCode > 7 || qrcode.maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");
-    assert(!(qrcode.textStr.size() > MaximalAmountOfInfo[qrcode.correctionLevel][40]) && "Length of string is more than allowed");
-    assert(!(qrcode.textStr.size() == 0) && "Length can't be equal to 0");
-    switch (qrcode.GetMode()) {
+    assert(!(correctionLevel > 4 || correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
+    assert(!(maskCode > 7 || maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");  
+    assert(!(textStr.size() == 0) && "Length can't be equal to 0");
+    if (mode == alphanumeric) {
+        assert(!(textStr.size() > MaximalAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
+    }
+
+
+    switch (GetMode()) {
     case alphanumeric:
-        qrcode.StrEncoderAlphanumeric();
+        StrEncoderAlphanumeric();
         break;
     case binary:
-        qrcode.StrEncodeBinary();
+        StrEncodeBinary();
         break;
     }
 
-    qrcode.AddingServiceFields();
-    qrcode.AddingExtraBits();
-    qrcode.DividingToBlocks();
-    qrcode.CreatingCorrectionBytes();
-    qrcode.CombiningBlocks();
-    qrcode.DrawingArray(t_color, b_color);
+    AddingServiceFields();
+    AddingExtraBits();
+    DividingToBlocks();
+    CreatingCorrectionBytes();
+    CombiningBlocks();
+    DrawingArray(t_color, b_color);
 }
 
 

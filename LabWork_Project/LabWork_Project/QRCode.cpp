@@ -113,7 +113,7 @@ using std::begin; using std::end; using std::copy; using std::stoi;
     \brief Adds service fields such as: size of the info to encode, version to be used and encoding mode    
     */
 
-    void QR::AddingServiceFields() {
+    void QR::AddingServiceFields(bool needToPlusVersion) {
         string buffer;
         string result;
 
@@ -133,15 +133,19 @@ using std::begin; using std::end; using std::copy; using std::stoi;
         //looking for the right version
         switch (GetMode()) {
         case alphanumeric:
-            while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version]) {
+            while (textStr.size() > MaximalAmountOfInfo[correctionLevel][version] && version<40) {
                 version++;
             }
             break;
         case binary:
-            while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version]) {
+            while (bitStr.size() > MaxAmountOfInfo[correctionLevel][version] && version<40) {
                 version++;
             }
             break;
+        }
+
+        if (needToPlusVersion==true) {
+            version++;
         }
 
         //length adjustment
@@ -200,7 +204,15 @@ using std::begin; using std::end; using std::copy; using std::stoi;
 
         result = buffer + bitStr;
 
-        bitStr = result;
+        if (result.size() > MaxAmountOfInfo[correctionLevel][version]) {
+            if (version == 40) {
+                assert(!(result.size() > MaxAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
+            }
+            AddingServiceFields(true);
+        }
+        else {
+            bitStr = result;
+        }
     }
 
     /*!
@@ -506,26 +518,28 @@ using std::begin; using std::end; using std::copy; using std::stoi;
     \param[in] b_color - Background color of the qr code (usually it is white)
     */
 
-    void QR::Draw(QR qrcode, text_colors t_color, background_colors b_color) {
+    void QR::Draw(text_colors t_color, background_colors b_color) {
         //assert((t_color == black || t_color == blue || t_color == brown || t_color == green) && "t_color value can only be 'black', 'brown', 'green' or 'blue'");
         //assert((b_color == white || b_color == yellow || b_color == orange) && "b_color value can only be 'white', 'yellow' or 'orange'");
-        assert(!(qrcode.correctionLevel > 4 || qrcode.correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
-        assert(!(qrcode.maskCode > 7 || qrcode.maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");
-        assert(!(qrcode.textStr.size() > MaximalAmountOfInfo[qrcode.correctionLevel][40]) && "Length of string is more than allowed");
-        assert(!(qrcode.textStr.size() == 0) && "Length can't be equal to 0");
-        switch (qrcode.GetMode()) {
+        assert(!(correctionLevel > 4 || correctionLevel < 1) && "Invalid correction level entered. The value must be between 1 and 4");
+        assert(!(maskCode > 7 || maskCode < 0) && "Invalid mask code entered. The value must be between 0 and 7");
+        if (mode == alphanumeric) {
+            assert(!(textStr.size() > MaximalAmountOfInfo[correctionLevel][40]) && "Length of string is more than allowed");
+        }
+        assert(!(textStr.size() == 0) && "Length can't be equal to 0");
+        switch (GetMode()) {
         case alphanumeric:
-            qrcode.StrEncoderAlphanumeric();
+            StrEncoderAlphanumeric();
             break;
         case binary:
-            qrcode.StrEncodeBinary();
+            StrEncodeBinary();
             break;
         }
 
-        qrcode.AddingServiceFields();
-        qrcode.AddingExtraBits();
-        qrcode.DividingToBlocks();
-        qrcode.CreatingCorrectionBytes();
-        qrcode.CombiningBlocks();
-        qrcode.DrawingArray(t_color, b_color);
+        AddingServiceFields();
+        AddingExtraBits();
+        DividingToBlocks();
+        CreatingCorrectionBytes();
+        CombiningBlocks();
+        DrawingArray(t_color, b_color);
     }

@@ -37,7 +37,7 @@ class QR {
         string DecimalToBinary(int number);
         int BinaryToDecimal(string str);
         void StrEncoderAlphanumeric();
-        void AddingServiceFields();
+        void AddingServiceFields(bool needToPlusVersion = false);
         void AddingExtraBits();
         void DividingToBlocks();
         void CreatingCorrectionBytes();
@@ -50,7 +50,7 @@ class QR {
         int GetMaskCode();
         string GetInfo();
         encoding_mode GetMode();
-        void Draw(QR qrcode, text_colors t_color, background_colors b_color);
+        void Draw(text_colors t_color, background_colors b_color);
 
         /*!
             \brief QR constructor 
